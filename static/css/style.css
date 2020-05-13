@@ -1,0 +1,13 @@
+#root {
+    width: 100%;
+    height: 800px;
+    background: #000;
+}
+
+.shan{
+	border:1px solid #FC0;
+ 
+	box-shadow:0 0 8px #DDD;
+	-moz-box-shadow:0 0 8px #DDD;
+	-webkit-box-shadow:0 0 8px #DDD;
+}
