@@ -11,3 +11,32 @@
 	-moz-box-shadow:0 0 8px #DDD;
 	-webkit-box-shadow:0 0 8px #DDD;
 }
+
+/* 导航条 */
+.topnav {
+	top: 0;
+	left: 0;
+	width: 100%;
+	position: fixed;
+	padding: 10px;
+	text-align: center;
+	font-weight: bold;
+	overflow: hidden;
+	background-color: #333;
+  }
+  
+  /* 导航链接 */
+  .topnav a {
+	float: left;
+	display: block;
+	color: #f2f2f2;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+  }
+  
+  /* 链接 - 修改颜色 */
+  .topnav a:hover {
+	background-color: #ddd;
+	color: black;
+  }
