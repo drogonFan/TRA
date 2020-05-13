@@ -8,7 +8,7 @@
     <script type="text/javascript" src="../static/js/taxi_zones.js"></script>
     <script type="text/javascript" src="../static/js/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/over.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/ten.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/selectFilter.css" />
 </head>
 
 <body>
@@ -28,14 +28,53 @@
                     <h2 style="text-align:left">请选择您要查询的区域</h2><br>
                     <div class="inline field region_field inline-block">
                         <label class="field_label">区域</label>&nbsp;&nbsp;
-                        <select class="ui search selection dropdown" id="region_select0"></select>
+                        <div class="filter-box">
+                            <div class="filter-text">
+                                <input class="filter-title" type="text" readonly placeholder="pleace select" />
+                                <i class="icon icon-filter-arrow"></i>
+                            </div>
+                            <select name="filter">
+                                <option value="new" disabled>最新的</option>
+                                <option value="unaudited">未审核</option>
+                                <option value="nothrough" selected>未通过</option>
+                                <option value="audit">正在审核</option>
+                                <option value="audited">已审核</option>
+                                <option value="passed">已通过</option>
+                                <option value="1">111</option>
+                                <option value="2">222</option>
+                                <option value="3">333</option>
+                                <option value="4">444</option>
+                                <option value="5">555</option>
+                                <option value="6">666</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="inline field">
                         <label class="field_label">时间</label>&nbsp;&nbsp; 
                         <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_begin">
                         <label class="field_label">&nbsp;&nbsp;至&nbsp;&nbsp;</label><input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_end" name="date_end">
                     </div>
-                    <div class="inline field"><label class="field_label">粒度</label>&nbsp;&nbsp;<select class="ui search selection dropdown w120" id="range_select0"></select>
+                    <div class="inline field"><label class="field_label">粒度</label>&nbsp;&nbsp;
+                        <div class="filter-box">
+                            <div class="filter-text">
+                                <input class="filter-title" type="text" readonly placeholder="pleace select" />
+                                <i class="icon icon-filter-arrow"></i>
+                            </div>
+                            <select name="filter">
+                                <option value="new" disabled>最新的</option>
+                                <option value="unaudited">未审核</option>
+                                <option value="nothrough" selected>未通过</option>
+                                <option value="audit">正在审核</option>
+                                <option value="audited">已审核</option>
+                                <option value="passed">已通过</option>
+                                <option value="1">111</option>
+                                <option value="2">222</option>
+                                <option value="3">333</option>
+                                <option value="4">444</option>
+                                <option value="5">555</option>
+                                <option value="6">666</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="inline field inline-block">
                         <label class="field_label opacity_0">确认</label>&nbsp;&nbsp;
