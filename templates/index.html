@@ -5,7 +5,8 @@
     <title></title>
     {% load static %}
     <script src="https://d3js.org/d3.v5.js"></script>
-        <script type="text/javascript" src="../static/js/taxi_zones.js"></script>
+    <script type="text/javascript" src="../static/js/taxi_zones.js"></script>
+    <script type="text/javascript" src="../static/js/jquery-3.5.1.min.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 </head>
 
@@ -13,7 +14,7 @@
     <div class="root">
         <div class="topnav">
             <a href="https://reactjs.org">叫什么名字呢</a>
-            <a href="https://reactjs.org">首页</a>
+            <p id="backtohome" href="https://reactjs.org">首页</p>
             <a href="https://reactjs.org">概述</a>
             <a href="https://reactjs.org">位置流量趋势图</a>
             <a href="https://reactjs.org">区域热力图</a>
@@ -78,7 +79,6 @@
     }
     
     function transPath(point){
-        console.log(point['startPoint']);
         let startPoint = point['startPoint'];
         let endPoint = point['endPoint'];
         let controlPoint = point['controlPoint'];
@@ -136,7 +136,6 @@
     var endpoint = [-73.926060,40.873577]
     var startPoint = projection(startpoint);
     var endPoint = projection(endpoint);
-    console.log(startPoint);
     var controlPoint =  computeControlPoint(startPoint, endPoint, 0.5);
     linesGroup.push({
         startPoint,
@@ -242,5 +241,11 @@
     setInterval(animate, 3200)
     //`M${x1}, ${y1} Q${x},${y} ${p.x}, ${p.y}`
 
+$('#backtohome').click(function(){
+    console.log("xxxx");
+})
+
 </script>
 </html>
+
+
