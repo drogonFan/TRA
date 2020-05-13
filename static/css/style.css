@@ -1,6 +1,8 @@
 body {
     display: block;
-    margin: 8px;
+    margin: 0px;
+	padding: 0px;
+    background: #123456;
 }
 
 .root {
@@ -28,7 +30,7 @@ body {
 }
 
 .svg_sty {
-	margin:10;
+	margin-left:20;
 	padding: 0;
 }
 
