@@ -1,4 +1,9 @@
 .root {
+	margin:0;
+	padding: 0;
+}
+
+.root {
 	width: 100%;
 	height:100%;/*必须*/
 	margin:0;
