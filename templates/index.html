@@ -92,19 +92,20 @@
     const padding = 0;
 
     const svg = d3.select(".chart")
-        .attr("height", svgHeight)
-        .attr("width", svgWidth)
+        // .attr("height", svgHeight)
+        // .attr("width", svgWidth)
         .style("background","#123456");
 
     const x0 = padding;
     const y0 = padding;
     const x1 = svgWidth - padding * 2;
     const y1 = svgHeight - padding * 2;
-    const projection = d3.geoMercator().fitExtent(
-        [
-            [x0, y0],
-            [x1, y1],
-        ], taxi_zones);
+    const projection = d3.geoMercator();
+    // const projection = d3.geoMercator().fitExtent(
+    //     [
+    //         [x0, y0],
+    //         [x1, y1],
+    //     ], taxi_zones);
 
     const pathGenerator = d3.geoPath().projection(projection); //配置上投影
     // 定义地理路径生成器
