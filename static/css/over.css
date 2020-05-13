@@ -2,6 +2,7 @@ body {
     display: block;
     margin: 0px;
 	padding: 0px;
+
 }
 
 .root {
@@ -16,6 +17,7 @@ body {
     height:100%;
 	margin-top:200px;
 	padding: 0;
+	background: #F7F7F7;
 }
 
 .leftd{
@@ -67,3 +69,9 @@ body {
 	background-color: #ddd;
 	color: black;
   }
+
+.field_label{
+	font-size:16px;
+	padding:0;
+	display:inline-block;
+}
