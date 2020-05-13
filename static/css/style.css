@@ -1,4 +1,6 @@
 .root {
+	width: 100%;
+	height:100%;/*必须*/
 	margin:0;
 	padding: 0;
     background: #000;
@@ -6,14 +8,14 @@
 
 .root2 {
 	width: 100%;
-	height:90%;/*必须*/
+	height:100%;/*必须*/
 	margin:0;
 	padding: 0;
 }
 
 .root1 {
 	width: 100%;
-	height:10%;/*必须*/
+	height:90px;
 	margin:0;
 	padding: 0;
 }
