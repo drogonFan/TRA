@@ -18,14 +18,14 @@ body {
 	padding: 0;
 }
 
-.left_d{
+.leftd{
     float:left;
     height: 100%;
     width: 25%;
     margin: 0px;
 }
 
-.right_d{
+.rightd{
     height: 100%;
     width: 75%;
     margin: 0px;
