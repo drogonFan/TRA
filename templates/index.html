@@ -11,17 +11,15 @@
 
 <body>
     <div>
-        <div>
-            <div class="topnav">
-              <a href="https://reactjs.org">叫什么名字呢</a>
-              <a href="https://reactjs.org">首页</a>
-              <a href="https://reactjs.org">概述</a>
-              <a href="https://reactjs.org">位置流量趋势图</a>
-              <a href="https://reactjs.org">区域热力图</a>
-              <a href="https://reactjs.org">飞线图</a>
-              <a href="https://reactjs.org">数据接口</a>
-            </div>
-          </div>
+        <div class="topnav">
+            <a href="https://reactjs.org">叫什么名字呢</a>
+            <a href="https://reactjs.org">首页</a>
+            <a href="https://reactjs.org">概述</a>
+            <a href="https://reactjs.org">位置流量趋势图</a>
+            <a href="https://reactjs.org">区域热力图</a>
+            <a href="https://reactjs.org">飞线图</a>
+            <a href="https://reactjs.org">数据接口</a>
+        </div>
         <div class="#root">
             <svg class="chart">
                 <defs>
@@ -91,7 +89,7 @@
      */
     const svgWidth = 1300;
     const svgHeight = 600;
-    const padding = 30;
+    const padding = 0;
 
     const svg = d3.select(".chart")
         .attr("height", svgHeight)
