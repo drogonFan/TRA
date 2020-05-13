@@ -8,6 +8,16 @@
     background: #000;
 }
 
+.root1 {
+	width: 100%;
+	top: 20;
+	left: 0;
+	height:10%;/*必须*/
+	margin:0;
+	padding: 0;
+    background: #000;
+}
+
 .shan{
 	border:1px solid #FC0;
  
