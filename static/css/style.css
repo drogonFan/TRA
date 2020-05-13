@@ -6,31 +6,21 @@ body {
 }
 
 .root {
-	width: 100%;
-	height:100%;/*必须*/
 	margin:0;
 	padding: 0;
-    background: #000;
-}
-
-.root2 {
-	width: 100%;
-	height:1200px;/*必须*/
-	display:flex;
-	text-align:center;
-	margin:0;
-	padding: 0;
+    background:  #12345600;
 }
 
 .root1 {
 	width: 100%;
-	height:90px;
+	height:100%;
 	margin:0;
 	padding: 0;
 }
 
 .svg_sty {
 	margin-left:20;
+	margin-top: 200px;
 	padding: 0;
 }
 
