@@ -1,6 +1,6 @@
-.root {
-	margin:0;
-	padding: 0;
+body {
+    display: block;
+    margin: 8px;
 }
 
 .root {
@@ -26,6 +26,12 @@
 	margin:0;
 	padding: 0;
 }
+
+.svg_sty {
+	margin:10;
+	padding: 0;
+}
+
 
 .shan{
 	border:1px solid #FC0;
