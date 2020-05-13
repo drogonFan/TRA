@@ -1,8 +1,10 @@
 .root {
-    width: 100%;
+	width: 100%;
+	top: 20;
 	left: 0;
 	height:95%;/*必须*/
-	clear:both;
+	margin:0;
+	padding: 0;
     background: #000;
 }
 
@@ -18,7 +20,6 @@
 .topnav {
 	top: 0;
 	left: 0;
-    height:5%;/*必须*/
 	width: 100%;
 	position: fixed;
 	padding: 10px;
