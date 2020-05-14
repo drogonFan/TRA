@@ -10,3 +10,6 @@ def homepage(request):
 
 def overview(request):
     return render(request, 'overview.html')
+
+def heatmap(request):
+    return render(request, 'heatmap.html')

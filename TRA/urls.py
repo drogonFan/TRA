@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('homepage/', view.homepage),
     path('overview/', view.overview),
+    path('heatmap/', view.heatmap),
 ]
