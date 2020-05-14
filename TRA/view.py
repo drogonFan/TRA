@@ -18,7 +18,10 @@ def heatmap(request):
 
 def add_data_2017(request):
     if request.method == 'POST':
+        # openid = request.POST.get('openid', default='')
+        # university = request.POST.get('university', default='')
         datas = json.loads(request.body.decode('utf-8'))
+        print(request.POST)
         print(datas)
     else:
         rs = {'code':109, 'des':'Not accepting post requests'}
