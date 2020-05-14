@@ -20,7 +20,8 @@ def heatmap(request):
     return render(request, 'heatmap.html')
 
 def api(request):
-    return render(request, 'chart.html')
+    data = [{'x':10,'y':10}, {'x':15, 'y':15}]
+    return render(request, 'chart.html', {'List': json.dumps(data),})
 
 @csrf_exempt
 def add_data_2017(request):
