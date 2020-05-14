@@ -5,6 +5,7 @@ from django.conf.urls import url, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from data.models import Record
+from django.views.decorators.csrf import csrf_exempt
 import json
 
 def homepage(request):
@@ -16,6 +17,7 @@ def overview(request):
 def heatmap(request):
     return render(request, 'heatmap.html')
 
+@csrf_exempt
 def add_data_2017(request):
     if request.method == 'POST':
         # openid = request.POST.get('openid', default='')
