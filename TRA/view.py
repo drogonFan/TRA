@@ -38,3 +38,5 @@ def add_data_2017(request):
                 fare_amount=datas[8], extra=datas[9],
                 total_amount=datas[10])
         record.save()
+    rs = {}
+    return HttpResponse(json.dumps(rs))
