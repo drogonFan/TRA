@@ -8,6 +8,7 @@ from data.models import Record
 from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import datetime
+import django.utils.timezone as timezone
 
 def homepage(request):
     return render(request, 'index.html')
@@ -25,8 +26,8 @@ def add_data_2017(request):
         # university = request.POST.get('university', default='')
         datas = json.loads(request.body.decode('utf-8'))
         print(datas)
-        record = Record(ttype=datas[0], pickup_datetime=datetime.strptime(datas[1], '%Y-%m-%d %H:%M:%S'), 
-                dropoff_datetime=datetime.strptime(datas[2], '%Y-%m-%d %H:%M:%S'), 
+        record = Record(ttype=datas[0], pickup_datetime=datetime.strptime(datas[1], '%Y-%m-%d %H:%M:%S',tz=timezone.utc), 
+                dropoff_datetime=datetime.strptime(datas[2], '%Y-%m-%d %H:%M:%S', tz=timezone.utc), 
                 passenger_count=datas[3], PULocationID=datas[4], DOLocationID=datas[5], 
                 payment_type=datas[6], trip_distance=datas[7],
                 fare_amount=datas[8], extra=datas[9],
