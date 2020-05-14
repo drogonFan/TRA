@@ -23,8 +23,10 @@ def add_data_2017(request):
         # openid = request.POST.get('openid', default='')
         # university = request.POST.get('university', default='')
         datas = json.loads(request.body.decode('utf-8'))
-        print(request.POST)
         print(datas)
-    else:
-        rs = {'code':109, 'des':'Not accepting post requests'}
-    return HttpResponse(json.dumps(rs))
+        record = Record(ttype=datas[0], pickup_datetime=datas[1], dropoff_datetime=datas[2], 
+                passenger_count=datas[3], PULocationID=datas[4], DOLocationID=datas[5], 
+                payment_type=datas[6], trip_distance=datas[7],
+                fare_amount=datas[8], extra=datas[9],
+                total_amount=datas[10])
+        record.save()
