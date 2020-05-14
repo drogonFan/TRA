@@ -26,45 +26,47 @@
             </div>
             
             <div class="body" style="position:relative;top:0px;margin: 0px;">
-                <div class="svg_sty" style="position:relative;top:0px;margin: 0px;">
-                    <svg class="chart">
-                        <defs>
-                            <mask id="Mask0">
-                                <circle id="circle0" r="150" fill="url(#grad)"  />
-                            </mask>
-                            <mask id="Mask1">
-                                <circle id="circle1" r="150" fill="url(#grad)"  />
-                          </mask>
-            
-                            <radialGradient
-                                id="grad"
-                                cx="0.5"
-                                cy="0.5"
-                                r="0.5" >
-                                <stop offset="0%" stop-color="#fff" stop-opacity='1'/>
-                                <stop offset="100%" stop-color="#fff" stop-opacity='0' />
-                            </radialGradient>
-                        </defs>
-            
-                        <filter id="inLight" x="-50%" y="-50%" width="200%" height="200%">
-                            <feComponentTransfer in=SourceAlpha>
-                              <feFuncA type="table" tableValues="1 0" />
-                            </feComponentTransfer>
-                            <feGaussianBlur stdDeviation="4"/>
-                            <feOffset dx="0" dy="1" result="offsetblur"/>
-                            <feFlood flood-color="#d9f939" result="color"/>
-                            <feComposite in2="offsetblur" operator="in"/>
-                            <feComposite in2="SourceAlpha" operator="in" />
-                            <feMerge>
-                              <feMergeNode in="SourceGraphic" />
-                              <feMergeNode />
-                            </feMerge>
-                        </filter>
-            
-                        <filter id="outLight" x="-50%" y="-50%"  width="200%" height="200%">
-                            <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="hsla(180,90%,40%,0.9)" />
-                        </filter>
-                    </svg>
+                <div id = "tu" class="root1">
+                    <div class="svg_sty">
+                        <svg class="chart">
+                            <defs>
+                                <mask id="Mask0">
+                                    <circle id="circle0" r="150" fill="url(#grad)"  />
+                                </mask>
+                                <mask id="Mask1">
+                                    <circle id="circle1" r="150" fill="url(#grad)"  />
+                              </mask>
+                
+                                <radialGradient
+                                    id="grad"
+                                    cx="0.5"
+                                    cy="0.5"
+                                    r="0.5" >
+                                    <stop offset="0%" stop-color="#fff" stop-opacity='1'/>
+                                    <stop offset="100%" stop-color="#fff" stop-opacity='0' />
+                                </radialGradient>
+                            </defs>
+                
+                            <filter id="inLight" x="-50%" y="-50%" width="200%" height="200%">
+                                <feComponentTransfer in=SourceAlpha>
+                                  <feFuncA type="table" tableValues="1 0" />
+                                </feComponentTransfer>
+                                <feGaussianBlur stdDeviation="4"/>
+                                <feOffset dx="0" dy="1" result="offsetblur"/>
+                                <feFlood flood-color="#d9f939" result="color"/>
+                                <feComposite in2="offsetblur" operator="in"/>
+                                <feComposite in2="SourceAlpha" operator="in" />
+                                <feMerge>
+                                  <feMergeNode in="SourceGraphic" />
+                                  <feMergeNode />
+                                </feMerge>
+                            </filter>
+                
+                            <filter id="outLight" x="-50%" y="-50%"  width="200%" height="200%">
+                                <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="hsla(180,90%,40%,0.9)" />
+                            </filter>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </body>
