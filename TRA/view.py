@@ -7,7 +7,7 @@ from rest_framework import routers, serializers, viewsets
 from data.models import Record
 from django.views.decorators.csrf import csrf_exempt
 import json
-import datetime
+from datetime import datetime
 
 def homepage(request):
     return render(request, 'index.html')
