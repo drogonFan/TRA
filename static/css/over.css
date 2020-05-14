@@ -81,3 +81,10 @@ body {
 .leftolabel{
 	margin-left: 5px;
 }
+
+.chartcss{
+	position: relative;
+	margin-left: 100px;
+    width: 600px;
+    height: 500px;
+}
