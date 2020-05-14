@@ -22,5 +22,6 @@ urlpatterns = [
     path('homepage/', view.homepage),
     path('overview/', view.overview),
     path('heatmap/', view.heatmap),
+    path('api/', view.api),
     path('add_data_2017/', view.add_data_2017),
 ]

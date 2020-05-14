@@ -19,6 +19,9 @@ def overview(request):
 def heatmap(request):
     return render(request, 'heatmap.html')
 
+def api(request):
+    return render(request, 'chart.html')
+
 @csrf_exempt
 def add_data_2017(request):
     if request.method == 'POST':
