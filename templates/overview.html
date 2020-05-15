@@ -60,7 +60,6 @@
                         </div>
                     </div>
                     <div class="ui error message" id="error_message">
-
                     </div>
                 </div>
             </form>
@@ -81,6 +80,14 @@ $('#location_submit').click(function(){
     console.log(typeof $('#date_begin').val());
     console.log(typeof $('#date_end').val());
     console.log(typeof $('#range_select0').val());
+
+    var oDate1 = new Date(begindate);
+    var oDate2 = new Date(enddate);
+    if (oDate1 < oDate2){
+        console.log("right");
+    } else {
+        console.log("cuowu");
+    }
 })
 
 </script>
