@@ -24,7 +24,9 @@ def api(request):
     # 区域，起始时间，终止时间，粒度
     print(request.POST)
     data = [{'x':10,'y':10}, {'x':15, 'y':15}]
-    return render(request, 'chart.html', {'List': json.dumps(data),})
+    rs = {'data':data}
+    # return render(request, 'chart.html', {'List': json.dumps(data),})
+    return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
 def add_data_2017(request):
