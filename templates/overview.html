@@ -88,6 +88,17 @@ $('#location_submit').click(function(){
     } else {
         console.log("cuowu");
     }
+
+    $.ajax({
+        url: "http://47.95.147.13:9999/api/",
+        data: {'region':region, 'begindate':begindate, 'enddate':enddate, 'range':range},
+        type: "POST",
+        dataType: "json",
+        success: function(data) {
+            
+        }
+    });
+    
 })
 
 </script>
