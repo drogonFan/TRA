@@ -66,7 +66,14 @@
     </body>
 <script>
     $.datetimepicker.setLocale('zh');
-    $('#date_begin').datetimepicker({ format: 'Y/m/d', timepicker: false });
-    $('#date_end').datetimepicker({ format: 'Y/m/d', timepicker: false });
+    $('#date_begin').datetimepicker({ format: 'Y-m-d', timepicker: false });
+    $('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false });
+
+$('#location_submit').click(function(){
+    console.log($('#date_begin').val());
+    console.log($('#date_begin').val());
+})
+
+
 </script>
 </html>
