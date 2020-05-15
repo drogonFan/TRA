@@ -72,10 +72,15 @@
     $('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false });
 
 $('#location_submit').click(function(){
-    console.log($('#region_select0').val());
-    console.log($('#date_begin').val());
-    console.log($('#date_begin').val());
-    console.log($('range_select0').val())
+    var region = $('#region_select0').val();
+    var begindate = $('#date_begin').val();
+    var enddate = $('#date_end').val();
+    var range = $('#range_select0').val();
+
+    console.log(typeof $('#region_select0').val());
+    console.log(typeof $('#date_begin').val());
+    console.log(typeof $('#date_end').val());
+    console.log(typeof $('#range_select0').val());
 })
 
 </script>
