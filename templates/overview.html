@@ -35,10 +35,9 @@
                         <label class="field_label">区域</label><br><br>
                         
                         <select class="ui search selection dropdown" id="region_select0">
-                            <option class="item">bj</option>
-                            <option>bj</option>
-                            <option>la</option>
-                            <option>ds</option>
+                            <option>美利山</option>
+                            <option>时代广场</option>
+                            <option>联合广场</option>
                         </select>
                         
                     </div>
@@ -50,7 +49,10 @@
                     </div>
                     <div class="inline field">
                         <label class="field_label">粒度</label><br><br>
-                        <select class="ui search selection dropdown w120" id="range_select0"></select>
+                        <select class="ui search selection dropdown w120" id="range_select0">
+                            <option>60分钟</option>
+                            <option>30分钟</option>
+                        </select>
                     </div>
                     <div class="inline field inline-block">
                         
@@ -70,10 +72,11 @@
     $('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false });
 
 $('#location_submit').click(function(){
+    console.log($('#region_select0').val());
     console.log($('#date_begin').val());
     console.log($('#date_begin').val());
+    console.log($('range_select0').val())
 })
-
 
 </script>
 </html>
