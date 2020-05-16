@@ -24,5 +24,5 @@ urlpatterns = [
     path('heatmap/', view.heatmap),
     path('api/', view.api),
     path('add_data_2017/', view.add_data_2017),
-    path('add_data_2017/', view.gen_index_data),
+    path('gen_index_data/', view.gen_index_data),
 ]
