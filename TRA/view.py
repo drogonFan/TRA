@@ -43,7 +43,7 @@ def gen_index_data(request):
         begindate = begindate.replace(tzinfo=timezone.utc)
         enddate = enddate.replace(tzinfo=timezone.utc)
         ran = int(request.POST['range'])
-        rec = Record.objects.filter(DOLocationID=244).filter(pickup_datetime__range(begindate, endate))
+        rec = Record.objects.filter(DOLocationID=244).filter(pickup_datetime__range=(begindate, enddate))
         hourlist = {0 for i in range(24)}
         for re in rec:
             hourlist[re.pickup_datetime.hour] += 1
