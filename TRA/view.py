@@ -41,7 +41,7 @@ def gen_index_data(request):
         begindate = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
         enddata = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
         ran = int(request.POST['range'])
-        rec = Record.objects.filter(PULocationID__exact(region)).filter(pickup_datetime__range(begindate, enddata)).values(pickup_datetime.hour).annotate(Count('pickup_datetime'))
+        rec = Record.objects.filter(PULocationID_exact(region)).filter(pickup_datetime_range(begindate, enddata)).values(pickup_datetime.hour).annotate(Count('pickup_datetime'))
         print(rec)
         for re in rec:
             pass
