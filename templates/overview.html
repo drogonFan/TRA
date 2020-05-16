@@ -96,6 +96,10 @@ $('#location_submit').click(function(){
         dataType: "json",
         success: function(data) {
             //window.location.href = 'http://47.95.147.13:9999/api';
+
+            if (data.msg == 'exist'){
+                window.location = '/homepage/'
+            }
         }
     });
     
