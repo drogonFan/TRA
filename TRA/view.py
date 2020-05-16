@@ -60,6 +60,7 @@ def gen_index_data(request):
     else:
         rs = {'code':109,'msg':''}
     # 返回json格式数据
+    print(rs)
     return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
