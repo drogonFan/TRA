@@ -98,7 +98,8 @@ $('#location_submit').click(function(){
             //window.location.href = 'http://47.95.147.13:9999/api';
 
             if (data.msg == 'exist'){
-                $('from1').remove();
+                // 删除控件
+                $('#from1').remove();
             }
         }
     });
