@@ -55,8 +55,11 @@ def gen_index_data(request):
             pass
         else:
             pass
-
-        rs = {'code':100, 'data':hourlist}
+        data = {}
+        for k,v in hourlist.items():
+            data.append['x':k, 'y':v]
+        print(data)
+        rs = {'code':100, 'data':data}
     else:
         rs = {'code':109,'msg':''}
     # 返回json格式数据
