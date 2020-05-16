@@ -55,9 +55,9 @@ def gen_index_data(request):
             pass
         else:
             pass
-        data = {}
+        data = []
         for k,v in hourlist.items():
-            data.append['x':k, 'y':v]
+            data.append({'x':k, 'y':v})
         print(data)
         rs = {'code':100, 'data':data}
     else:
