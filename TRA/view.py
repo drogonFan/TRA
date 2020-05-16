@@ -39,10 +39,14 @@ def gen_index_data(request):
         # 区域，起始时间，终止时间，粒度
         region = int(request.POST['region'])
         begindate = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
-        enddata = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
+        endate = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
+        begindate = begindate.replace(tzinfo=timezone.utc)
+        enddate = enddate.replace(tzinfo=timezone.utc)
         ran = int(request.POST['range'])
-        rec = Record.objects.filter(PULocationID_exact(region)).filter(pickup_datetime_range(begindate, enddata)).values(pickup_datetime.hour).annotate(Count('pickup_datetime'))
-        print(rec)
+        rec = Record.objects.filter(DOLocationID=244).filter(pickup_datetime__range(begindate, endate))
+        hourlist = {0 for i in range(24)}
+        for re in rec:
+            hourlist[re.pickup_datetime.hour] += 1
         for re in rec:
             pass
         if ran == 60:
@@ -50,7 +54,7 @@ def gen_index_data(request):
         else:
             pass
 
-        rs = {'code':100}
+        rs = {'code':100, 'data':hourlist}
     else:
         rs = {'code':109,'msg':''}
     # 返回json格式数据
