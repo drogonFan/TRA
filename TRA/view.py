@@ -23,6 +23,11 @@ def heatmap(request):
 def api(request):
     # 区域，起始时间，终止时间，粒度
     print(request.POST)
+    print(request.POST['region'])
+    print(request.POST['begindate'])
+    print(request.POST['enddate'])
+    print(request.POST['range'])
+
     data = [{'x':10,'y':10}, {'x':15, 'y':15}]
     rs = {'msg':"exist"}
     # return render(request, 'chart.html', {'List': json.dumps(data),})
