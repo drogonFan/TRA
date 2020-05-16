@@ -38,9 +38,9 @@
                         <label class="field_label">区域</label><br><br>
                         
                         <select class="ui search selection dropdown" id="region_select0">
-                            <option>美利山</option>
-                            <option>时代广场</option>
-                            <option>联合广场</option>
+                            <option value="170">美利山</option>
+                            <option value="230">时代广场</option>
+                            <option value="234">联合广场</option>
                         </select>
                         
                     </div>
@@ -53,8 +53,8 @@
                     <div class="inline field">
                         <label class="field_label">粒度</label><br><br>
                         <select class="ui search selection dropdown w120" id="range_select0">
-                            <option>60分钟</option>
-                            <option>30分钟</option>
+                            <option value="60">60分钟</option>
+                            <option value="30">30分钟</option>
                         </select>
                     </div>
                     <div class="inline field inline-block">
@@ -146,8 +146,10 @@ $('#location_submit').click(function(){
                         }
                     }
                 });
+            } else if (data.code == 109){
+                // 
             }
-            } 
+        } 
     });
     
 })
