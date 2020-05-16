@@ -25,8 +25,8 @@ def api(request):
     print(request.POST)
     data = [{'x':10,'y':10}, {'x':15, 'y':15}]
     rs = {'data':data}
-    # return render(request, 'chart.html', {'List': json.dumps(data),})
-    return HttpResponse(json.dumps(rs))
+    return render(request, 'chart.html', {'List': json.dumps(data),})
+    # return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
 def add_data_2017(request):
