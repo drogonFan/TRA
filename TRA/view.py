@@ -34,6 +34,29 @@ def api(request):
     return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
+def gen_index_data(request):
+    if request.method == 'POST':
+        # 区域，起始时间，终止时间，粒度
+        region = int(request.POST['region'])
+        begindate = datetime.strptime(request.POST['begindate'] + ' 00:00:00')
+        enddata = datetime.strptime(request.POST['enddate'] + ' 23:59:59')
+        ran = int(request.POST['range'])
+        rec = Record.objects.filter(PULocationID__exact(region)).filter(pickup_datetime__range(begindate, enddata)).values(pickup_datetime.hour).annotate(Count('pickup_datetime'))
+        print(rec)
+        for re in rec:
+            pass
+        if ran == 60:
+            pass
+        else:
+            pass
+
+        rs = {'code':100}
+    else:
+        rs = {'code':109,'msg':''}
+    # 返回json格式数据
+    return HttpResponse(json.dumps(rs))
+
+@csrf_exempt
 def add_data_2017(request):
     if request.method == 'POST':
         # openid = request.POST.get('openid', default='')
