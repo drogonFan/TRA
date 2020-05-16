@@ -20,28 +20,30 @@ class Record(models.Model):
     extra = models.FloatField()
     total_amount = models.FloatField()
 
-    def __str__(self):
-        return self.oid
-
     class Meta:
         db_table = 'nyc_taxi'
 
-# class OldRecord(models.Model):
-#     oid = models.AutoField(primary_key = True)
-#     ttype = models.CharField(max_length=2)
-#     pickup_datetime = models.DateTimeField('上车时间', default = timezone.now)
-#     dropoff_datetime = models.DateTimeField('上车时间', default = timezone.now)
-#     passenger_count = models.IntegerField()
-#     PULocationID = models.IntegerField()
-#     DOLocationID = models.IntegerField()
-#     payment_type = models.IntegerField()
-#     trip_distance = models.FloatField()
-#     fare_amount = models.FloatField()
-#     extra = models.FloatField()
-#     total_amount = models.FloatField()
+class OldRecord(models.Model):
+    # lpep_pickup_datetime,lpep_dropoff_datetime,
+    # total_amount, extra
 
-#     def __str__(self):
-#         return self.oid
+    # ratecodeid,pickup_longitude,pickup_latitude,dropoff_longitude,dropoff_latitude,
+    # passenger_count,trip_distance,fare_amount,extra,mta_tax,tip_amount,tolls_amount,
+    # improvement_surcharge,total_amount,payment_type,trip_type 
+    oid = models.AutoField(primary_key = True)
+    ttype = models.CharField(max_length=2)
+    pickup_datetime = models.DateTimeField('上车时间', default = timezone.now)
+    dropoff_datetime = models.DateTimeField('上车时间', default = timezone.now)
+    passenger_count = models.IntegerField()
+    uplat = models.FloatField()
+    uplon = models.FloatField()
+    droplat = models.FloatField()
+    droplon = models.FloatField()
+    payment_type = models.IntegerField()
+    trip_distance = models.FloatField()
+    fare_amount = models.FloatField()
+    extra = models.FloatField()
+    total_amount = models.FloatField()
 
-#     class Meta:
-#         db_table = 'old_nyc_taxi'
+    class Meta:
+        db_table = 'old_nyc_taxi'
