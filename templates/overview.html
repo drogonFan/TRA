@@ -26,7 +26,7 @@
         </div>
         
         <div class="body" style="position:relative;top:130px">
-            <form action="" class="body_form ui form grid" id="location_form">
+            <form id = "from1" action="" class="body_form ui form grid" id="location_form">
                 <div class="four wide column"></div>
                 <div class="twelve wide column">
                     <h2 style="text-align:left">请选择您要查询的区域</h2>
@@ -98,7 +98,7 @@ $('#location_submit').click(function(){
             //window.location.href = 'http://47.95.147.13:9999/api';
 
             if (data.msg == 'exist'){
-                window.location = '/homepage/'
+                $('from1').remove();
             }
         }
     });
