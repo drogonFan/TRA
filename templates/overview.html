@@ -97,7 +97,7 @@ $('#location_submit').click(function(){
     }
 
     $.ajax({
-        url: "http://47.95.147.13:9999/api/",
+        url: "http://47.95.147.13:9999/gen_index_data/",
         data: {'region':region, 'begindate':begindate, 'enddate':enddate, 'range':range},
         type: "POST",
         dataType: "json",
