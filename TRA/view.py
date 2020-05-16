@@ -39,7 +39,7 @@ def gen_index_data(request):
         # 区域，起始时间，终止时间，粒度
         region = int(request.POST['region'])
         begindate = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
-        endate = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
+        enddate = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
         begindate = begindate.replace(tzinfo=timezone.utc)
         enddate = enddate.replace(tzinfo=timezone.utc)
         ran = int(request.POST['range'])
