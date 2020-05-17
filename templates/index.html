@@ -179,8 +179,9 @@
 
     function get_data(){
         // 获取当前时间
+        time = new Date().Format("yyyy-MM-dd hh:mm:ss");
         var data = {
-            "time" : new Date().Format("yyyy-MM-dd hh:mm:ss"), 
+            "time" : a, 
         };
         
         // 向后端发送请求，获取绘制飞线图的数据
