@@ -178,6 +178,8 @@
     }
 
     function get_data(){
+        var startpoints = [];
+        var endpoints = [];
         
         // 向后端发送请求，获取绘制飞线图的数据
         var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
@@ -190,12 +192,13 @@
         httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
             if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
                 // 成功获取数据
-                var json = httpRequest.responseText;//获取到服务端返回的数据
-                console.log(json);
+                var data = httpRequest.responseText;//获取到服务端返回的数据
+                startpoints = data['startpoints'];
+                endpoints = data['endpoints'];
             }
         };
     }
-
+    linesGroup = cal_lines(startpoints, endpoints);
     const animate = () => {
         get_data();
         svg.select('.flyline').remove()

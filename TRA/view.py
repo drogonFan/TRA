@@ -92,8 +92,8 @@ def get_flyingline_data(request):
         startpoints = []
         endpoints = []
         for r in rec:
-            startpoints.append([r.uplat, r.uplon])
-            endpoints.append([r.droplat, r.droplon])
+            startpoints.append([r.uplon, r.uplat])
+            endpoints.append([r.droplon, r.droplat])
         rs = {'code':100, 'startpoints':startpoints, 'endpoints':endpoints}
     else:
         rs = {'code':109, 'msg':''}
