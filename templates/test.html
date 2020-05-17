@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="../static/css/jquery.datetimepicker.css">
         <link rel="stylesheet" href="../static/css/semantic.min.css">
         <link rel="stylesheet" href="../static/css/style.min.css">
+        <link rel="stylesheet" href="../static/css/over.css">
     </head>
 <body>
     <div class="ui fixed main menu header">
@@ -20,43 +21,25 @@
             </div>
         </div>
         
-        <div class="body" style="position:relative;top:130px">
-            <form action="" class="body_form ui form grid" id="location_form">
-                <div class="four wide column"></div>
-                <div class="twelve wide column">
-                    <h2 style="text-align:left">请选择您要查询的区域</h2>
-                    
-                    <div class="inline field region_field inline-block">
-                        <label class="field_label">区域</label><br><br>
-                        
-                        <select class="ui search selection dropdown" id="selectID">
-                            <option class="item">bj</option>
-                            <option>bj</option>
-                            <option>la</option>
-                            <option>ds</option>
-                        </select>
-                        
-                    </div>
-                    <div class="inline field">
-                        <label class="field_label">时间</label><br><br>
-                        <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_begin">
-                        <label class="field_label">&nbsp;&nbsp;至&nbsp;&nbsp;</label>
-                        <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_end" name="date_end">
-                    </div>
-                    <div class="inline field">
-                        <label class="field_label">粒度</label><br><br>
-                        <select class="ui search selection dropdown w120" id="range_select0"></select>
-                    </div>
-                    <div class="inline field inline-block">
-                        
-                        <div class="ui blue button submit mytheme" id="location_submit" style="width:120px">查看数据
-                        </div>
-                    </div>
-                    <div class="ui error message" id="error_message">
+        <div class="body" style="position:relative;height:500px;top:130px;overflow: auto;">
+            <div class="main">
+                <div>
+                    <h1 align="center">交通可视化系统概述</h1>
+                </div>
 
+                <br><br>
+
+                <div class="tu1">
+                    <div class="photo_left"><img height="400" width="100%" src="../static/img/flyingline.png"></div>
+                    <div class="intro_right" >
+                        <h3>部分区域的人口迁徙情况可视化</h3>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;采用飞线图的方式展示一个区域到其他区域的人口迁徙情况，将区域间的人口流动情况可视化。
+                        </p>
                     </div>
                 </div>
-            </form>
+            </div>
+
         </div>
+    </div>
     </body>
 </html>

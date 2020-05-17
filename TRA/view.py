@@ -4,11 +4,12 @@ from django.shortcuts import render
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
-from data.models import Record
+from data.models import Record, OldRecord
 from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import datetime
 import django.utils.timezone as timezone
+from TRA.gginfos import gginfo_170,gginfo_230,gginfo_234
 
 def homepage(request):
     return render(request, 'index.html')
@@ -18,6 +19,9 @@ def overview(request):
 
 def heatmap(request):
     return render(request, 'heatmap.html')
+
+def trend(request):
+    return render(request, 'traffic_trend.html')
 
 @csrf_exempt
 def api(request):
@@ -33,37 +37,62 @@ def api(request):
     # return render(request, 'chart.html', {'List': json.dumps(data),})
     return HttpResponse(json.dumps(rs))
 
+def heat(request):
+    begindate = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
+    enddate = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
+    begindate = begindate.replace(tzinfo=timezone.utc)
+    enddate = enddate.replace(tzinfo=timezone.utc)
+
 @csrf_exempt
 def gen_index_data(request):
     if request.method == 'POST':
         # 区域，起始时间，终止时间，粒度
         region = int(request.POST['region'])
-        begindate = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
-        enddate = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
-        begindate = begindate.replace(tzinfo=timezone.utc)
-        enddate = enddate.replace(tzinfo=timezone.utc)
-        ran = int(request.POST['range'])
-        rec = Record.objects.filter(DOLocationID=244).filter(pickup_datetime__range=(begindate, enddate))
-        hourlist = {}
-        for i in range(24):
-            hourlist[i] = 0
+
+        # 从数据库中读取数据（根据区域以及时间限制）
+        rec = Record.objects.filter(DOLocationID=region)
+        weeklist = {}
+
+        for i in range(7):
+            hourlist = {}
+            for j in range(24):
+                hourlist[j] = 0
+            weeklist[i] = hourlist
+        
+        # 统计数目
         for re in rec:
-            hourlist[re.pickup_datetime.hour] += 1
-        for re in rec:
-            pass
-        if ran == 60:
-            pass
+            week = re.pickup_datetime.weekday()
+            weeklist[week][re.pickup_datetime.hour] += 1
+        
+        for i in range(7):
+            data = []
+            for k,v in weeklist[i].items():
+                data.append({'x':k, 'y':v})
+            weeklist[i] = data
+        
+        if region == 170:
+            gdata = gginfo_170
+        elif region == 230:
+            gdata = gginfo_230
         else:
-            pass
-        data = []
-        for k,v in hourlist.items():
-            data.append({'x':k, 'y':v})
-        print(data)
-        rs = {'code':100, 'data':data}
+            gdata = gginfo_234
+        
+        rs = {'code':100, 'data':weeklist, 'gdata':gdata}
     else:
-        rs = {'code':109,'msg':''}
+        # 不接受get请求
+        rs = {'code':109, 'msg':''}
     # 返回json格式数据
-    print(rs)
+    return HttpResponse(json.dumps(rs))
+
+@csrf_exempt
+def get_flyingline_data(request):
+    # 返回最近10秒钟所有的交通数据，以及今日的总人数
+    date = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
+    if request.method == 'GET':
+        rec = Record.objects.filter()
+    else:
+        rs = {'code':109, 'msg':''}
+    rs = {}
     return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
@@ -84,6 +113,27 @@ def add_data_2017(request):
                 payment_type=datas[6], trip_distance=datas[7],
                 fare_amount=datas[8], extra=datas[9],
                 total_amount=datas[10])
+        record.save()
+    rs = {}
+    return HttpResponse(json.dumps(rs))
+
+@csrf_exempt
+def add_data_2016(request):
+    if request.method == 'POST':
+        # openid = request.POST.get('openid', default='')
+        # university = request.POST.get('university', default='')
+        datas = json.loads(request.body.decode('utf-8'))
+        print(datas)
+        udate = datetime.strptime(datas[1], '%Y-%m-%d %H:%M:%S')
+        ddate = datetime.strptime(datas[2], '%Y-%m-%d %H:%M:%S')
+        udate = udate.replace(tzinfo=timezone.utc)
+        ddate = ddate.replace(tzinfo=timezone.utc)
+
+        record = OldRecord(ttype=datas[0], pickup_datetime=udate, 
+                dropoff_datetime=ddate, 
+                passenger_count=datas[3], uplon=datas[4],uplat=datas[5],droplon=datas[6],droplat=datas[7], 
+                payment_type=datas[8], trip_distance=datas[9],
+                fare_amount=datas[10], extra=datas[11],total_amount=datas[12])
         record.save()
     rs = {}
     return HttpResponse(json.dumps(rs))

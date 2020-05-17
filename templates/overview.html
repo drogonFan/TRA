@@ -3,17 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>位置流量趋势</title>
-        {% load static %}
         <link rel="stylesheet" href="../static/css/jquery.datetimepicker.css">
         <link rel="stylesheet" href="../static/css/semantic.min.css">
         <link rel="stylesheet" href="../static/css/style.min.css">
-
-        <link href="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.min.css" rel="stylesheet">
-        <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-        <script src="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.full.min.js"></script>
-
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-        <link rel="stylesheet" type="text/css" href="../static/css/over.css">
+        <link rel="stylesheet" href="../static/css/over.css">
     </head>
 <body>
     <div class="ui fixed main menu header">
@@ -28,131 +21,25 @@
             </div>
         </div>
         
-        <div class="body" style="position:relative;top:130px">
-            <form id = "from1" action="" class="body_form ui form grid" id="location_form">
-                <div class="four wide column"></div>
-                <div class="twelve wide column">
-                    <h2 style="text-align:left">请选择您要查询的区域</h2>
-                    
-                    <div class="inline field region_field inline-block">
-                        <label class="field_label">区域</label><br><br>
-                        
-                        <select class="ui search selection dropdown" id="region_select0">
-                            <option value="170">美利山</option>
-                            <option value="230">时代广场</option>
-                            <option value="234">联合广场</option>
-                        </select>
-                        
-                    </div>
-                    <div class="inline field">
-                        <label class="field_label">时间</label><br><br>
-                        <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_begin">
-                        <label class="field_label">&nbsp;&nbsp;至&nbsp;&nbsp;</label>
-                        <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_end" name="date_end">
-                    </div>
-                    <div class="inline field">
-                        <label class="field_label">粒度</label><br><br>
-                        <select class="ui search selection dropdown w120" id="range_select0">
-                            <option value="60">60分钟</option>
-                            <option value="30">30分钟</option>
-                        </select>
-                    </div>
-                    <div class="inline field inline-block">
-                        
-                        <div class="ui blue button submit mytheme" id="location_submit" style="width:120px">查看数据
-                        </div>
-                    </div>
-                    <div class="ui error message" id="error_message">
+        <div class="body" style="position:relative;height:500px;top:130px;overflow: auto;">
+            <div class="main">
+                <div>
+                    <h1 align="center">交通可视化系统概述</h1>
+                </div>
+
+                <br><br>
+
+                <div class="tu1">
+                    <div class="photo_left"><img height="400" width="100%" src="../static/img/flyingline.png"></div>
+                    <div class="intro_right" >
+                        <h3>部分区域的人口迁徙情况可视化</h3>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;采用飞线图的方式展示一个区域到其他区域的人口迁徙情况，将区域间的人口流动情况可视化。
+                        </p>
                     </div>
                 </div>
-            </form>
-
-            <div class="chartcss" id="chart" style="display:none;">
-                <canvas id="myChart" width="400" height="250"></canvas>
             </div>
+
         </div>
+    </div>
     </body>
-<script>
-    $.datetimepicker.setLocale('zh');
-    $('#date_begin').datetimepicker({ format: 'Y-m-d', timepicker: false });
-    $('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false });
-
-$('#location_submit').click(function(){
-    var region = $('#region_select0').val();
-    var begindate = $('#date_begin').val();
-    var enddate = $('#date_end').val();
-    var range = $('#range_select0').val();
-
-    console.log(typeof $('#region_select0').val());
-    console.log(typeof $('#date_begin').val());
-    console.log(typeof $('#date_end').val());
-    console.log(typeof $('#range_select0').val());
-
-    var oDate1 = new Date(begindate);
-    var oDate2 = new Date(enddate);
-    if (oDate1 < oDate2){
-        console.log("right");
-    } else {
-        console.log("cuowu");
-    }
-
-    $.ajax({
-        url: "http://47.95.147.13:9999/gen_index_data/",
-        data: {'region':region, 'begindate':begindate, 'enddate':enddate, 'range':range},
-        type: "POST",
-        dataType: "json",
-        success: function(data) {
-            //window.location.href = 'http://47.95.147.13:9999/api';
-
-            if (data.code == '100'){
-                // 删除控件
-                $('#from1').hide();
-                $('#chart').show()
-                var ctx = document.getElementById('myChart');
-                var chartdata = data.data;
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
-                        datasets: [{
-                            label: '# of Votes',
-                            data: chartdata,
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
-            } else if (data.code == 109){
-                // 
-            }
-        } 
-    });
-    
-})
-
-</script>
 </html>

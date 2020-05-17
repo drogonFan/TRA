@@ -21,8 +21,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('homepage/', view.homepage),
     path('overview/', view.overview),
+    path('trend/', view.trend),
     path('heatmap/', view.heatmap),
     path('api/', view.api),
     path('add_data_2017/', view.add_data_2017),
     path('gen_index_data/', view.gen_index_data),
+    path('get_flyingline_data/', view.get_flyingline_data),
+    path('add_data_2016/',view.add_data_2016),
 ]

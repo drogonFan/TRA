@@ -1,245 +1,159 @@
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>位置流量趋势</title>
+        {% load static %}
+        <link rel="stylesheet" href="../static/css/jquery.datetimepicker.css">
+        <link rel="stylesheet" href="../static/css/semantic.min.css">
+        <link rel="stylesheet" href="../static/css/style.min.css">
 
-<head>
-    <meta charset='UTF-8'>
-    <title></title>
-    {% load static %}
-    <script src="https://d3js.org/d3.v5.js"></script>
-    <script type="text/javascript" src="../static/js/taxi_zones.js"></script>
-    <script type="text/javascript" src="../static/js/jquery-3.5.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
-</head>
+        <link href="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.min.css" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.full.min.js"></script>
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <link rel="stylesheet" type="text/css" href="../static/css/over.css">
+    </head>
 <body>
-    <div class="root">
-        <div class="topnav">
-            <a href="http://47.95.147.13:9999/homepage/">叫什么名字呢</a>
-            <a href="http://47.95.147.13:9999/homepage/">首页</a>
-            <a href="http://47.95.147.13:9999/overview/">概述</a>
-            <a href="http://47.95.147.13:9999/traffic_trend/">位置流量趋势图</a>
-            <a href="http://47.95.147.13:9999/heatmap/">区域热力图</a>
-            <a href="http://47.95.147.13:9999/api/">数据接口</a>
-        </div>
-        <div id = "tu" class="root1">
-            <div class="svg_sty">
-                <svg class="chart">
-                    <defs>
-                        <mask id="Mask0">
-                            <circle id="circle0" r="150" fill="url(#grad)"  />
-                        </mask>
-                        <mask id="Mask1">
-                            <circle id="circle1" r="150" fill="url(#grad)"  />
-                      </mask>
-        
-                        <radialGradient
-                            id="grad"
-                            cx="0.5"
-                            cy="0.5"
-                            r="0.5" >
-                            <stop offset="0%" stop-color="#fff" stop-opacity='1'/>
-                            <stop offset="100%" stop-color="#fff" stop-opacity='0' />
-                        </radialGradient>
-                    </defs>
-        
-                    <filter id="inLight" x="-50%" y="-50%" width="200%" height="200%">
-                        <feComponentTransfer in=SourceAlpha>
-                          <feFuncA type="table" tableValues="1 0" />
-                        </feComponentTransfer>
-                        <feGaussianBlur stdDeviation="4"/>
-                        <feOffset dx="0" dy="1" result="offsetblur"/>
-                        <feFlood flood-color="#d9f939" result="color"/>
-                        <feComposite in2="offsetblur" operator="in"/>
-                        <feComposite in2="SourceAlpha" operator="in" />
-                        <feMerge>
-                          <feMergeNode in="SourceGraphic" />
-                          <feMergeNode />
-                        </feMerge>
-                    </filter>
-        
-                    <filter id="outLight" x="-50%" y="-50%"  width="200%" height="200%">
-                        <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="hsla(180,90%,40%,0.9)" />
-                    </filter>
-                </svg>
+    <div class="ui fixed main menu header">
+        <div class="container header_container">
+            <div class="header_container_left">
+                <a class="header_container_left_title" href="http://47.95.147.13:9999/homepage/">交通可视化</a>
+                <a href="http://47.95.147.13:9999/homepage/" class="header_container_left_nav">首页</a>
+                <a href="http://47.95.147.13:9999/overview/" class="header_container_left_nav">概述</a>
+                <a href="http://47.95.147.13:9999/traffic_trend/" class="header_container_left_nav">位置流量趋势图</a>
+                <a href="http://47.95.147.13:9999/heatmap/" class="header_container_left_nav">区域热力图</a>
+                <a href="http://47.95.147.13:9999/api/" class="header_container_left_nav">数据接口</a>
             </div>
         </div>
-    </div>
-</body>
-<script>
-    // 计算控制点的坐标
-    function computeControlPoint(ps, pe, arc = 0.5) {
-	  const deltaX = pe[0] - ps[0];
-	  const deltaY = pe[1] - ps[1];
-	  const theta = Math.atan(deltaY / deltaX);
-	  const len = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY)) / 2 * arc;   
-	  const newTheta = theta - Math.PI / 2;    
-	  return [
-	    (ps[0] + pe[0]) / 2 + len * Math.cos(newTheta),    
-	    (ps[1] + pe[1]) / 2 + len * Math.sin(newTheta),    
-	  ];
-    }
-    
-    function transPath(point){
-        let startPoint = point['startPoint'];
-        let endPoint = point['endPoint'];
-        let controlPoint = point['controlPoint'];
-        return `M${startPoint[0]}, ${startPoint[1]} Q${controlPoint[0]},${controlPoint[1]} ${endPoint[0]}, ${endPoint[1]}`;
-    }
-    
-    /**
-     * 基本配置 
-     */
-    const svgWidth = 1100;
-    const svgHeight = 600;
-    const padding = 0;
-
-    const svg = d3.select(".chart")
-        .attr("height", svgHeight)
-        .attr("width", svgWidth)
-        .style("background","#123456");
-
-    const x0 = padding;
-    const y0 = padding;
-    const x1 = svgWidth - padding * 2;
-    const y1 = svgHeight - padding * 2;
-    const projection = d3.geoMercator().fitExtent(
-        [
-            [x0, y0],
-            [x1, y1],
-        ], taxi_zones);
-
-    const pathGenerator = d3.geoPath().projection(projection); //配置上投影
-    // 定义地理路径生成器
-    const mapContainer = svg.append("g"); //添加mapContainer装载地图绘制内容
-    // 加载地图内容
-    const mapPath = mapContainer.selectAll("path")
-        .data(taxi_zones.features) //数据绑定
-        .join("path")
-        .attr("d", pathGenerator) //绘制path
-        .attr("stroke-width", 0.5)
-        .attr("stroke", "#2F90A1")
-        .attr("fill", "#062031");
-
-    // // 地图缩放
-    // function zoomed() {
-    //     const t = d3.event.transform;
-    //     mapContainer.attr("transform", `translate(${t.x}, ${t.y}) scale(${t.k})`); //改变mapContainer的位置及缩放
-    // }
-    // const zoom = d3.zoom()
-    //             .scaleExtent([1, 3])  //设置监听范围
-    //             .on("zoom", zoomed);  //设置监听事件
         
-    // svg.call(zoom); //应用
+        <div class="body" style="position:relative;top:130px">
+            <form id = "from1" action="" class="body_form ui form grid" id="location_form">
+                <div class="four wide column"></div>
+                <div class="twelve wide column">
+                    <h2 style="text-align:left">请选择您要查询的区域</h2>
+                    
+                    <div class="inline field region_field inline-block">
+                        <label class="field_label">区域</label><br><br>
+                        
+                        <select class="ui search selection dropdown" id="region_select0">
+                            <option value="170">美利山</option>
+                            <option value="230">时代广场</option>
+                            <option value="234">联合广场</option>
+                        </select>
+                        
+                    </div>
+                    <div class="inline field">
+                        <label class="field_label">时间</label><br><br>
+                        <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_begin">
+                        <label class="field_label">&nbsp;&nbsp;至&nbsp;&nbsp;</label>
+                        <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_end" name="date_end">
+                    </div>
+                    <div class="inline field">
+                        <label class="field_label">粒度</label><br><br>
+                        <select class="ui search selection dropdown w120" id="range_select0">
+                            <option value="60">60分钟</option>
+                            <option value="30">30分钟</option>
+                        </select>
+                    </div>
+                    <div class="inline field inline-block">
+                        <button class="button-success pure-button">成功按钮</button>
+                    </div>
+                    <div class="ui error message" id="error_message">
+                    </div>
+                </div>
+            </form>
 
-    // 计算控制点，并生成线
-    var linesGroup = []
-    var startpoint = [-73.99929, 40.7247]
-    var endpoint = [-73.926060,40.873577]
-    var startPoint = projection(startpoint);
-    var endPoint = projection(endpoint);
-    var controlPoint =  computeControlPoint(startPoint, endPoint, 0.5);
-    linesGroup.push({
-        startPoint,
-        endPoint,
-        controlPoint: computeControlPoint(startPoint, endPoint, 0.5),
-    });
-
-    var startpoint = [-73.949321, 40.788420]
-    var endpoint = [-73.996013,40.719760]
-    var startPoint = projection(startpoint);
-    var endPoint = projection(endpoint);
-    var controlPoint =  computeControlPoint(startPoint, endPoint, 0.5);
-    linesGroup.push({
-        startPoint,
-        endPoint,
-        controlPoint: computeControlPoint(startPoint, endPoint, 0.5),
-    });
-
-    const animate = () => {
-        svg.select('.flyline').remove()
-        const flylines = svg.append('g').attr('class', 'flyline');
-        for (let i = 0; i < linesGroup.length; i += 1){
-            flylines
-            .append('path')
-            .attr('fill', 'none')
-            .attr('stroke', 'none')
-            .attr('d', transPath(linesGroup[i]))
-            .attr('id', `flyline${i}`)
-
-            flylines.append("circle")
-            .attr('filter', `url(#inLight)`)
-            .attr('stroke', '#82f939')
-            .attr('fill', '#d9f939')
-            .attr( 'cx' , linesGroup[i]['startPoint'][0])
-            .attr( 'cy' , linesGroup[i]['startPoint'][1])
-            .attr( 'r' , 2)
-            .transition() //转场效果
-            .duration( 500 ) //动画转场时间2秒
-            .remove()
-
-            flylines.append('path')
-            .attr('stroke', '#19D0DC')
-            .attr('fill', 'none')
-            .attr('id', `flyline${i}`)
-            .attr('stroke-width', '1px')
-            .attr('mask', `url(#Mask${i})`)
-            .transition()
-            .duration(3000)
-            .attrTween('d', function(d) {
-                const $path = d3.select(`#flyline${i}`).node();
-                const len = $path.getTotalLength();
-                const coord = $path.getAttribute('d').replace(/(M|Q)/g, '').match(/((\d|\.)+)/g);
-                var x1 = +coord[0], y1 = +coord[1], // 起点
-                    x2 = +coord[2], y2 = +coord[3], // 控制点
-                    x3 = +coord[4], y3 = +coord[5]; // 终点
-                return function(t) {
-                const p = $path.getPointAtLength(t * len) ; 
-                const x = (1 - t) * x1 + t * x2;
-                const y = (1 - t) * y1 + t * y2;
-                d3.select(`#circle${i}`).attr('cx', p.x).attr('cy', p.y);
+            <div class="body" style="position:relative;height:500px;top:130px;overflow: auto;">
                 
-                // 到达终点后，触发
-                if (Math.abs(p.x-x3) <= 0.0001 && Math.abs(p.y-y3) <= 0.0001){
-                    svg.append("circle")
-                    .attr('stroke', '#82f939')
-                    .attr('fill', '#044B9466')
-                    .attr( 'cx' , linesGroup[i]['endPoint'][0])
-                    .attr( 'cy' , linesGroup[i]['endPoint'][1]) //滑鼠y坐标
-                    .attr( 'r' , 1e-6 ) //(0.000001 ,科学计算法)
-                    .style('stroke' , 10) //(i = (i+1) % 360)取余数 		
-                    .style('stroke-opacity', 1 ) //一开始是不透明 		
-                    .transition() //转场效果
-                    .duration( 1500 ) //动画转场时间2秒
-                    .ease( Math .sqrt) //取得平方根，不懂在这边有什么意义
-                    .attr( 'r' , 8) //不断放大
-                    .style( 'stroke-opacity' , 1e-6 )
-                    .remove()
-                }
+                <div class="chartcss" id="chart" style="display:none;">
+                    <canvas id="myChart" width="400" height="250"></canvas>
+                </div>
+            </div>
+        </div>
+    </body>
+<script>
+    $.datetimepicker.setLocale('zh');
+    $('#date_begin').datetimepicker({ format: 'Y-m-d', timepicker: false });
+    $('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false });
 
+$('#location_submit').click(function(){
+    var region = $('#region_select0').val();
+    var begindate = $('#date_begin').val();
+    var enddate = $('#date_end').val();
+    var range = $('#range_select0').val();
 
-                return `M${x1}, ${y1} Q${x},${y} ${p.x}, ${p.y}`
-                }
-            })
-            .remove(
-                // svg.append("circle")
-                // .attr('stroke', '#daf872')
-                // .attr('fill', '#044B9466')
-                // .attr( 'cx' , linesGroup[i]['endPoint'][0])
-                // .attr( 'cy' , linesGroup[i]['endPoint'][1]) //滑鼠y坐标
-                // .attr( 'r' , 1e-6 ) //(0.000001 ,科学计算法)
-                // .style('stroke' , 10) //(i = (i+1) % 360)取余数 		
-                // .style('stroke-opacity', 1 ) //一开始是不透明 		
-                // .transition() //转场效果
-                // .duration( 2000 ) //动画转场时间2秒
-                // .ease( Math .sqrt) //取得平方根，不懂在这边有什么意义
-                // .attr( 'r' , 100) //不断放大
-                // .style( 'stroke-opacity' , 1e-6 )
-                // .remove()
-            );
-        }
+    console.log(typeof $('#region_select0').val());
+    console.log(typeof $('#date_begin').val());
+    console.log(typeof $('#date_end').val());
+    console.log(typeof $('#range_select0').val());
+
+    var oDate1 = new Date(begindate);
+    var oDate2 = new Date(enddate);
+    if (oDate1 < oDate2){
+        console.log("right");
+    } else {
+        console.log("cuowu");
     }
-    animate()
-    setInterval(animate, 3200)
-    //`M${x1}, ${y1} Q${x},${y} ${p.x}, ${p.y}`
+
+    $.ajax({
+        url: "http://47.95.147.13:9999/gen_index_data/",
+        data: {'region':region, 'begindate':begindate, 'enddate':enddate, 'range':range},
+        type: "POST",
+        dataType: "json",
+        success: function(data) {
+            //window.location.href = 'http://47.95.147.13:9999/api';
+
+            if (data.code == '100'){
+                // 删除控件
+                $('#from1').hide();
+                $('#chart').show()
+                var ctx = document.getElementById('myChart');
+                var chartdata = data.data;
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+                        datasets: [{
+                            label: '# of Votes',
+                            data: chartdata,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            } else if (data.code == 109){
+                // 
+            }
+        } 
+    });
+    
+})
 
 </script>
 </html>

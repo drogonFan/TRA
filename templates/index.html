@@ -160,6 +160,46 @@
         controlPoint: computeControlPoint(startPoint, endPoint, 0.5),
     });
 
+    function cal_lines(startpoints, endpoints) {
+        var linesGroup = [];
+        for (i = 0;i < startpoints.length; i++){
+            var startpoint = startpoints[i];
+            var endpoint = endpoints[i];
+            var startPoint = projection(startpoint);
+            var endPoint = projection(endpoint);
+            var controlPoint =  computeControlPoint(startPoint, endPoint, 0.5);
+            linesGroup.push({
+                startPoint,
+                endPoint,
+                controlPoint: computeControlPoint(startPoint, endPoint, 0.5),
+            });
+        }
+        return linesGroup;
+    }
+
+    function get_data(){
+        // 获取当前时间
+        var data = {
+            'time' : new Date().Format("yyyy-MM-dd hh:mm:ss"), 
+        };
+        
+        // 向后端发送请求，获取绘制飞线图的数据
+        var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+        httpRequest.open('POST', 'http://47.95.147.13:9999/get_flyingline_data/', true); //第二步：打开连接/***发送json格式文件必须设置请求头 ；如下 - */
+        httpRequest.setRequestHeader("Content-type","application/json");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）var obj = { name: 'zhansgan', age: 18 };
+        httpRequest.send(JSON.stringify(data));//发送请求 将json写入send中
+        /**
+        * 获取数据后的处理程序
+        */
+        httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+                // 成功获取数据
+                var json = httpRequest.responseText;//获取到服务端返回的数据
+                console.log(json);
+            }
+        };
+    }
+
     const animate = () => {
         svg.select('.flyline').remove()
         const flylines = svg.append('g').attr('class', 'flyline');
@@ -225,25 +265,11 @@
                 return `M${x1}, ${y1} Q${x},${y} ${p.x}, ${p.y}`
                 }
             })
-            .remove(
-                // svg.append("circle")
-                // .attr('stroke', '#daf872')
-                // .attr('fill', '#044B9466')
-                // .attr( 'cx' , linesGroup[i]['endPoint'][0])
-                // .attr( 'cy' , linesGroup[i]['endPoint'][1]) //滑鼠y坐标
-                // .attr( 'r' , 1e-6 ) //(0.000001 ,科学计算法)
-                // .style('stroke' , 10) //(i = (i+1) % 360)取余数 		
-                // .style('stroke-opacity', 1 ) //一开始是不透明 		
-                // .transition() //转场效果
-                // .duration( 2000 ) //动画转场时间2秒
-                // .ease( Math .sqrt) //取得平方根，不懂在这边有什么意义
-                // .attr( 'r' , 100) //不断放大
-                // .style( 'stroke-opacity' , 1e-6 )
-                // .remove()
-            );
+            .remove();
         }
     }
     animate()
+    // 定时任务
     setInterval(animate, 3200)
     //`M${x1}, ${y1} Q${x},${y} ${p.x}, ${p.y}`
 

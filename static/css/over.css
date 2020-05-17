@@ -83,8 +83,118 @@ body {
 }
 
 .chartcss{
-	position: relative;
-	margin-left: 100px;
-    width: 600px;
-    height: 500px;
+	display: flex;
+	justify-content: center; /* 水平居中 */
+	align-items: center;     /* 垂直居中 */
+    width: 90%;
+	height: 500px;
+	margin:auto 
 }
+
+
+.photo_left{
+    float:left;
+	width:50%;
+	margin: 0;
+	padding: 10px;
+}
+
+.intro_right{
+    float:right;
+	width:50%;
+	height: 400px;
+	text-align:middle;
+	vertical-align:middle;
+	padding: 10px;
+}
+
+.photo_right{
+    float:right;
+    width:20%;
+}
+
+.intro_left{
+    float:left;
+    width:80%;
+}
+
+.demo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 80%;
+}
+
+.main{
+    text-align:left; /*让div内部文字居中*/
+    background-color: #fff;
+    border-radius: 20px;
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.tu1{
+	width: 100%;
+	height: 300px;
+	margin:0;
+}
+
+::-webkit-scrollbar {
+	display: none; /* Chrome Safari */
+}
+
+.button-success,
+.button-error,
+.button-warning,
+.button-secondary {
+	color: white;
+	border-radius: 4px;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-success {
+	background: rgb(28, 184, 65); /* this is a green */
+}
+
+.button-error {
+	background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-warning {
+	background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.button-secondary {
+	background: rgb(66, 184, 221); /* this is a light blue */
+}
+
+.weekshow{
+	display: flex;
+	justify-content: center; /* 水平居中 */
+	align-items: center;     /* 垂直居中 */
+	width: 100%;
+	height: 80px;
+}
+
+.chaxunshow{
+	margin-left: 20px;
+	display: flex;
+	justify-content: center; /* 水平居中 */
+	align-items: center;     /* 垂直居中 */
+	width: 100%;
+	height: 60px;
+}
+
+
+.uptitile{
+	width: 30%;
+	height: 30px;
+    text-align:left; /*让div内部文字居中*/
+}
+
