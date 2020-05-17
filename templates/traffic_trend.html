@@ -67,6 +67,7 @@ function gen_chart(chartdata, ggdata, index){
         return;
     }
     var ctx = document.getElementById('myChart');
+    console.log(chartdata[index])
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {

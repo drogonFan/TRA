@@ -76,7 +76,7 @@ def gen_index_data(request):
             gdata = gginfo_230
         else:
             gdata = gginfo_234
-        
+        print(weeklist)
         rs = {'code':100, 'data':weeklist, 'gdata':gdata}
     else:
         # 不接受get请求
