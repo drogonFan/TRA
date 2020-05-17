@@ -87,12 +87,16 @@ def gen_index_data(request):
 @csrf_exempt
 def get_flyingline_data(request):
     # 返回最近10秒钟所有的交通数据，以及今日的总人数
-    date = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
     if request.method == 'GET':
-        rec = Record.objects.filter()
+        rec = OldRecord.objects.all[:10]
+        startpoints = []
+        endpoints = []
+        for r in rec:
+            startpoints.append([r.uplat, r.uplon])
+            endpoints.append([r.droplat, r.droplon])
+        rs = {'code':100, 'startpoints':startpoints, 'endpoints':endpoints}
     else:
         rs = {'code':109, 'msg':''}
-    rs = {}
     return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
