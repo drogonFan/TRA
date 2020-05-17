@@ -75,9 +75,21 @@ function gen_chart(chartdata, ggdata, index){
             {
                 label: '# of Votes',
                 data: ggdata[index], //默认加载星期一 
-                fillColor : "rgba(220,220,220,0.5)",
+                fillColor : "rgba(220,220,220,0)",
     　　　　　　　// 线的颜色
                 strokeColor : "rgba(220,220,220,1)",
+    　　　　　　　// 点的填充颜色
+                pointColor : "rgba(220,220,220,1)",
+    　　　　　　　　// 点的边线颜色
+                pointStrokeColor : "#fff",
+                borderWidth: 1
+            },
+            {
+                label: '# of Votes',
+                data: chartdata[index], //默认加载星期一 
+                fillColor : "rgba(220,220,220,0)",
+    　　　　　　　// 线的颜色
+                strokeColor : "rgba(84 139 84,1)",
     　　　　　　　// 点的填充颜色
                 pointColor : "rgba(220,220,220,1)",
     　　　　　　　　// 点的边线颜色
