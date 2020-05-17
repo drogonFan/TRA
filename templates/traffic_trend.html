@@ -91,6 +91,7 @@ function gen_chart(chartdata, ggdata, index){
                     'rgba(153, 102, 255, 1)',
                     'rgba(255, 159, 64, 1)'
                 ],
+                strokeColor : "rgba(220,220,220,1)",
                 borderWidth: 1
             },
             {
@@ -112,6 +113,7 @@ function gen_chart(chartdata, ggdata, index){
                     'rgba(153, 102, 255, 1)',
                     'rgba(255, 159, 64, 1)'
                 ],
+                strokeColor : "rgba(151,187,205,1)",
                 borderWidth: 1
             }]
         },
@@ -148,8 +150,8 @@ $('#location_submit').click(function(){
             //window.location.href = 'http://47.95.147.13:9999/api';
 
             if (data.code == '100'){
-                var chartdata = data.data;
-                var ggdata = data.gdata;
+                chartdata = data.data;
+                ggdata = data.gdata;
                 gen_chart(chartdata, ggdata, 0);
                 
             } else if (data.code == 109){
@@ -161,6 +163,7 @@ $('#location_submit').click(function(){
 })
 
 $('#mon').click(function(){
+    console.log("mon");
     gen_chart(chartdata, ggdata, 0);
 })
 
