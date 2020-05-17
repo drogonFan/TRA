@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from datetime import datetime
 import django.utils.timezone as timezone
-from TRA.gginfos import gginfo_170,gginfo_230,gginfo_234
+from TRA.gginfos import gginfo_170,gginfo_230,gginfo_234, jiashuju
 
 def homepage(request):
     return render(request, 'index.html')
@@ -76,9 +76,7 @@ def gen_index_data(request):
             gdata = gginfo_230
         else:
             gdata = gginfo_234
-        print(weeklist)
-        print(gdata)
-        rs = {'code':100, 'data':weeklist, 'gdata':gdata}
+        rs = {'code':100, 'data':jiashuju, 'gdata':gdata}
     else:
         # 不接受get请求
         rs = {'code':109, 'msg':''}
