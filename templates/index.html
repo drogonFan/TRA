@@ -177,9 +177,11 @@
         return linesGroup;
     }
 
+    
+    var startpoints = [];
+    var endpoints = [];
+
     function get_data(){
-        var startpoints = [];
-        var endpoints = [];
         
         // 向后端发送请求，获取绘制飞线图的数据
         var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
