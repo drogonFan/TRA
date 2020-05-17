@@ -63,7 +63,8 @@ def gen_index_data(request):
         for re in rec:
             week = re.pickup_datetime.weekday()
             weeklist[week][re.pickup_datetime.hour] += 1
-        
+        # 使用假数据测试
+        weeklist = jiashuju
         for i in range(7):
             data = []
             for k,v in weeklist[i].items():
@@ -76,7 +77,7 @@ def gen_index_data(request):
             gdata = gginfo_230
         else:
             gdata = gginfo_234
-        rs = {'code':100, 'data':jiashuju, 'gdata':gdata}
+        rs = {'code':100, 'data':weeklist, 'gdata':gdata}
     else:
         # 不接受get请求
         rs = {'code':109, 'msg':''}
