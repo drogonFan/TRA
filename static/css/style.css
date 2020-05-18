@@ -16,12 +16,29 @@ body {
 	height:100%;
 	margin:0;
 	padding: 0;
+	display: flex;
+}
+
+.show_msg{
+	margin-top: 100px;
+	margin-left: -10px;
+	height: 100%;
+	width: 30%;
+	margin-right: 0;
+	position:absolute;
+}
+
+.msg_hen{
+	width: 100%;
+	height: 50px; 
+	display:inline-block; 
 }
 
 .svg_sty {
-	margin-left:20;
-	margin-top: 110px;
+	margin-left:200px;
+	margin-top: 100px;
 	padding: 0;
+	width: 70%;
 }
 
 
@@ -66,4 +83,22 @@ body {
 	position: relative;
     width: 400px;
     height: 400px;
+  }
+
+  table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+  td, th {
+	border: 1px solid #dddddd;
+	color:rgb(248, 241, 241);
+	font-size:15px;
+	text-align: left;
+	padding: 6px;
+  }
+  
+  tr:nth-child(even) {
+	background-color: #123456;
   }

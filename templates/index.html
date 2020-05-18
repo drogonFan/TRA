@@ -27,6 +27,164 @@
             
             <div class="body" style="position:relative;top:0px;margin: 0px;">
                 <div id = "tu" class="root1">
+                    <div class="show_msg">
+                        <div class="msg_hen">
+                            <a id = "unionsq" class="header_container_left_nav" style="font-size: 20px;">Union Sq</a>
+                            <a id = "timesq" class="header_container_left_nav" style="font-size: 20px;">Time Sq</a>
+                            <a id = "murry" class="header_container_left_nav" style="font-size: 20px;">Murry Hill</a>
+                        </div>
+                        
+
+                        <!-- union_sq_table -->
+                        <div id = "union_sq_table">
+                            <table>
+                                <tr>
+                                  <th>Area</th>
+                                  <th>heat</th>
+                                </tr>
+                                <tr>
+                                  <td>DUMBO/Vinegar Hill</td>
+                                  <td>23.1%</td>
+                                </tr>
+                                <tr>
+                                  <td>Brooklyn Heights</td>
+                                  <td>15.5%</td>
+                                </tr>
+                                <tr>
+                                  <td>East Harlem South</td>
+                                  <td>10.0%</td>
+                                </tr>
+                                <tr>
+                                  <td>Winecellarsiamsburg(North Side)</td>
+                                  <td>9.8%</td>
+                                </tr>
+                                <tr>
+                                  <td>Long Island City/Hunters Point</td>
+                                  <td>7.8%</td>
+                                </tr>
+                                <tr>
+                                  <td>Downtown Brooklyn/MetroTech</td>
+                                  <td>7.2%</td>
+                                </tr>
+                                <tr>
+                                    <td>Central Harlem</td>
+                                    <td>7.1%</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Momingside Heights</td>
+                                    <td>6.6%</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Washington Heights South</td>
+                                    <td>6.5%</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Fort Greene</td>
+                                    <td>6.4%</td>
+                                  </tr>
+                              </table>
+                        </div>
+
+                        <!-- union_sq_table -->
+                        <div id = "time_sq_table" style="display:none;">
+                            <table>
+                                <tr>
+                                  <th>Area</th>
+                                  <th>heat</th>
+                                </tr>
+                                <tr>
+                                  <td>Central Hariem</td>
+                                  <td>18.9%</td>
+                                </tr>
+                                <tr>
+                                  <td>Brooklyn Heights</td>
+                                  <td>15.1%</td>
+                                </tr>
+                                <tr>
+                                  <td>East Harlem South</td>
+                                  <td>12.6%</td>
+                                </tr>
+                                <tr>
+                                  <td>Winecellarsiamsburg(North Side)</td>
+                                  <td>10.2%</td>
+                                </tr>
+                                <tr>
+                                  <td>Long Island City/Hunters Point</td>
+                                  <td>8.1%</td>
+                                </tr>
+                                <tr>
+                                  <td>Downtown Brooklyn/MetroTech</td>
+                                  <td>8.1%</td>
+                                </tr>
+                                <tr>
+                                    <td>Central Harlem</td>
+                                    <td>7.9%</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Momingside Heights</td>
+                                    <td>7.4%</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Washington Heights South</td>
+                                    <td>6.0%</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Fort Greene</td>
+                                    <td>5.6%</td>
+                                  </tr>
+                              </table>
+                        </div>
+
+                        <div id = "murry_table" style="display:none;">
+                            <table>
+                                <tr>
+                                  <th>Area</th>
+                                  <th>heat</th>
+                                </tr>
+                                <tr>
+                                  <td>DUMBO/Vinegar Hill</td>
+                                  <td>23.1%</td>
+                                </tr>
+                                <tr>
+                                  <td>Brooklyn Heights</td>
+                                  <td>15.5%</td>
+                                </tr>
+                                <tr>
+                                  <td>East Harlem South</td>
+                                  <td>10.0%</td>
+                                </tr>
+                                <tr>
+                                  <td>Winecellarsiamsburg(North Side)</td>
+                                  <td>9.8%</td>
+                                </tr>
+                                <tr>
+                                  <td>Long Island City/Hunters Point</td>
+                                  <td>7.8%</td>
+                                </tr>
+                                <tr>
+                                  <td>Downtown Brooklyn/MetroTech</td>
+                                  <td>7.2%</td>
+                                </tr>
+                                <tr>
+                                    <td>Central Harlem</td>
+                                    <td>7.1%</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Momingside Heights</td>
+                                    <td>6.6%</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Washington Heights South</td>
+                                    <td>6.5%</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Fort Greene</td>
+                                    <td>6.4%</td>
+                                  </tr>
+                              </table>
+                        </div>
+
+                    </div>
                     <div class="svg_sty">
                         <svg class="chart">
                             <defs>
@@ -72,6 +230,8 @@
         </body>
 <script>
     // 计算控制点的坐标
+    // 230 -> a , 234 -> b, 170 -> c
+    const ttype = "a";
     function computeControlPoint(ps, pe, arc = 0.5) {
 	  const deltaX = pe[0] - ps[0];
 	  const deltaY = pe[1] - ps[1];
@@ -149,17 +309,6 @@
         controlPoint: computeControlPoint(startPoint, endPoint, 0.5),
     });
 
-    var startpoint = [-73.949321, 40.788420]
-    var endpoint = [-73.996013,40.719760]
-    var startPoint = projection(startpoint);
-    var endPoint = projection(endpoint);
-    var controlPoint =  computeControlPoint(startPoint, endPoint, 0.5);
-    linesGroup.push({
-        startPoint,
-        endPoint,
-        controlPoint: computeControlPoint(startPoint, endPoint, 0.5),
-    });
-
     function cal_lines(startpoints, endpoints) {
         var linesGroup = [];
         for (i = 0;i < startpoints.length; i++){
@@ -179,10 +328,11 @@
 
     const animate = () => {
         // 向后端发送请求，获取绘制飞线图的数据
+        var data = {"region" : type}
         var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
-        httpRequest.open('GET', 'http://47.95.147.13:9999/get_flyingline_data/', true); //第二步：打开连接/***发送json格式文件必须设置请求头 ；如下 - */
+        httpRequest.open('POST', 'http://47.95.147.13:9999/get_flyingline_data/', true); //第二步：打开连接/***发送json格式文件必须设置请求头 ；如下 - */
         httpRequest.setRequestHeader("Content-type","application/json");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）var obj = { name: 'zhansgan', age: 18 };
-        httpRequest.send();//发送请求 将json写入send中
+        httpRequest.send(JSON.stringify(obj));//发送请求 将json写入send中
         /**
         * 获取数据后的处理程序
         */
@@ -273,6 +423,26 @@
     // 定时任务
     setInterval(animate, 3200)
     //`M${x1}, ${y1} Q${x},${y} ${p.x}, ${p.y}`
+$('#unionsq').click(function(){
+    $('#time_sq_table').hide();
+    $('#murry_table').hide();
+    $('#union_sq_table').show();
+    ttype = "b";
+})
+
+$('#time_sq_table').click(function(){
+    $('#time_sq_table').show();
+    $('#murry_table').hide();
+    $('#union_sq_table').hide();
+    ttype = "a";
+})
+
+$('#murry_table').click(function(){
+    $('#time_sq_table').hide();
+    $('#murry_table').show();
+    $('#union_sq_table').hide();
+    ttype = "c";
+})
 
 </script>
 </html>

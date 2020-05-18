@@ -27,6 +27,5 @@ urlpatterns = [
     path('add_data_2017/', view.add_data_2017),
     path('gen_index_data/', view.gen_index_data),
     path('get_flyingline_data/', view.get_flyingline_data),
-    path('get_flyingline_data1/', view.get_flyingline_data1),
     path('add_data_2016/',view.add_data_2016),
 ]
