@@ -24,6 +24,14 @@ def trend(request):
     return render(request, 'traffic_trend.html')
 
 @csrf_exempt
+def get_heat_dat(request):
+    if request.method == "POST":
+        pass
+    else:
+        pass
+    return HttpResponse(json.dumps([]))
+
+@csrf_exempt
 def api(request):
     # 区域，起始时间，终止时间，粒度
     print(request.POST)
@@ -90,6 +98,7 @@ def get_flyingline_data(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         region = data['region']
+        print(region)
         rec = OldRecord.objects.filter(ttype=region)[:30]
         startpoints = []
         endpoints = []
@@ -100,7 +109,6 @@ def get_flyingline_data(request):
     else:
         rs = {'code':109, 'msg':''}
     return HttpResponse(json.dumps(rs))
-
 
 @csrf_exempt
 def add_data_2017(request):
