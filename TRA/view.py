@@ -88,7 +88,7 @@ def gen_index_data(request):
 def get_flyingline_data(request):
     # 返回最近10秒钟所有的交通数据，以及今日的总人数
     if request.method == 'POST':
-        print(request.POST)
+        print(request.body)
         rec = OldRecord.objects.all()[:30]
         startpoints = []
         endpoints = []
