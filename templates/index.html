@@ -332,7 +332,7 @@
         var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
         httpRequest.open('POST', 'http://47.95.147.13:9999/get_flyingline_data/', true); //第二步：打开连接/***发送json格式文件必须设置请求头 ；如下 - */
         httpRequest.setRequestHeader("Content-type","application/json");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）var obj = { name: 'zhansgan', age: 18 };
-        httpRequest.send(JSON.stringify(obj));//发送请求 将json写入send中
+        httpRequest.send(JSON.stringify(data));//发送请求 将json写入send中
         /**
         * 获取数据后的处理程序
         */
