@@ -231,7 +231,7 @@
 <script>
     // 计算控制点的坐标
     // 230 -> a , 234 -> b, 170 -> c
-    const ttype = "a";
+    var ttype = "a";
     function computeControlPoint(ps, pe, arc = 0.5) {
 	  const deltaX = pe[0] - ps[0];
 	  const deltaY = pe[1] - ps[1];
@@ -328,7 +328,7 @@
 
     const animate = () => {
         // 向后端发送请求，获取绘制飞线图的数据
-        var data = {"region" : ttype}
+        var data = {"region" : window.ttype}
         var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
         httpRequest.open('POST', 'http://47.95.147.13:9999/get_flyingline_data/', true); //第二步：打开连接/***发送json格式文件必须设置请求头 ；如下 - */
         httpRequest.setRequestHeader("Content-type","application/json");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）var obj = { name: 'zhansgan', age: 18 };
@@ -427,7 +427,7 @@ $('#unionsq').click(function(){
     $('#time_sq_table').hide();
     $('#murry_table').hide();
     $('#union_sq_table').show();
-    ttype = "b";
+    window.ttype = "b";
     animate();
 })
 
@@ -435,7 +435,7 @@ $('#time_sq_table').click(function(){
     $('#time_sq_table').show();
     $('#murry_table').hide();
     $('#union_sq_table').hide();
-    ttype = "a";
+    window.ttype = "a";
     animate();
 })
 
@@ -443,7 +443,7 @@ $('#murry_table').click(function(){
     $('#time_sq_table').hide();
     $('#murry_table').show();
     $('#union_sq_table').hide();
-    ttype = "c";
+    window.ttype = "c";
     animate();
 })
 
