@@ -36,7 +36,7 @@
                         
 
                         <!-- union_sq_table -->
-                        <div id = "union_sq_table">
+                        <div id = "union_sq_table" style="display:none;">
                             <table>
                                 <tr>
                                   <th>Area</th>
@@ -86,7 +86,7 @@
                         </div>
 
                         <!-- union_sq_table -->
-                        <div id = "time_sq_table" style="display:none;">
+                        <div id = "time_sq_table" >
                             <table>
                                 <tr>
                                   <th>Area</th>
@@ -328,7 +328,7 @@
 
     const animate = () => {
         // 向后端发送请求，获取绘制飞线图的数据
-        var data = {"region" : type}
+        var data = {"region" : ttype}
         var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
         httpRequest.open('POST', 'http://47.95.147.13:9999/get_flyingline_data/', true); //第二步：打开连接/***发送json格式文件必须设置请求头 ；如下 - */
         httpRequest.setRequestHeader("Content-type","application/json");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）var obj = { name: 'zhansgan', age: 18 };
@@ -428,6 +428,7 @@ $('#unionsq').click(function(){
     $('#murry_table').hide();
     $('#union_sq_table').show();
     ttype = "b";
+    animate();
 })
 
 $('#time_sq_table').click(function(){
@@ -435,6 +436,7 @@ $('#time_sq_table').click(function(){
     $('#murry_table').hide();
     $('#union_sq_table').hide();
     ttype = "a";
+    animate();
 })
 
 $('#murry_table').click(function(){
@@ -442,6 +444,7 @@ $('#murry_table').click(function(){
     $('#murry_table').show();
     $('#union_sq_table').hide();
     ttype = "c";
+    animate();
 })
 
 </script>
