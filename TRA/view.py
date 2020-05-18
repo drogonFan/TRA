@@ -88,7 +88,7 @@ def gen_index_data(request):
 def get_flyingline_data(request):
     # 返回最近10秒钟所有的交通数据，以及今日的总人数
     if request.method == 'GET':
-        rec = OldRecord.objects.all()[:10]
+        rec = OldRecord.objects.all()[:30]
         startpoints = []
         endpoints = []
         for r in rec:
@@ -98,6 +98,25 @@ def get_flyingline_data(request):
     else:
         rs = {'code':109, 'msg':''}
     return HttpResponse(json.dumps(rs))
+
+@csrf_exempt
+def get_flyingline_data1(request):
+    # 返回最近10秒钟所有的交通数据，以及今日的总人数
+    if request.method == 'GET':
+        rec = OldRecord.objects.all()[:10]
+        startpoints = [[-73.9877366, 40.7579787] for i in range(10)]
+        endpoints = []
+        a = [[40.7915376,-73.9909102],[40.8004667,-73.9598011], [40.8099892,-73.9725278],
+                [40.8438908,-73.9540628],[40.7678343,-73.9585814],[40.7036779,-73.9862854],
+                [40.8004667,-73.9598011],[40.696954,-74.0676524], [40.8135895,-73.964249],
+                [40.6968292,-74.0061743]]
+        for dd in a:
+            endpoints.append([dd[1], dd[0]])
+        rs = {'code':100, 'startpoints':startpoints, 'endpoints':endpoints}
+    else:
+        rs = {'code':109, 'msg':''}
+    return HttpResponse(json.dumps(rs))
+
 
 @csrf_exempt
 def add_data_2017(request):
