@@ -20,7 +20,7 @@ body {
 }
 
 .show_msg{
-	margin-top: 100px;
+	margin-top: 120px;
 	margin-left: -10px;
 	height: 100%;
 	width: 30%;
@@ -35,10 +35,10 @@ body {
 }
 
 .svg_sty {
-	margin-left:120px;
+	margin-left:200px;
 	margin-top: 100px;
 	padding: 0;
-	width: 50%;
+	width: 70%;
 }
 
 
