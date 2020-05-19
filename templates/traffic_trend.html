@@ -73,7 +73,7 @@ function gen_chart(chartdata, ggdata, index){
         data: {
             datasets: [
             {
-                label: '# of Votes',
+                label: '人流量相对值',
                 data: ggdata[index], //默认加载星期一 
                 fillColor : "rgba(220,220,220,0)",
     　　　　　　　// 线的颜色
@@ -85,7 +85,7 @@ function gen_chart(chartdata, ggdata, index){
                 borderWidth: 1
             },
             {
-                label: '# of Votes',
+                label: '交通流量',
                 data: chartdata[index], //默认加载星期一 
                 fillColor : "rgba(220,220,220,0)",
     　　　　　　　// 线的颜色
