@@ -24,12 +24,16 @@ def trend(request):
     return render(request, 'traffic_trend.html')
 
 @csrf_exempt
-def get_heat_dat(request):
+def get_heat_data(request):
     if request.method == "POST":
-        pass
+        datalist = {0: [12, 24, 42, 45, 88, 116, 120, 127, 127, 128, 128, 152, 153, 194, 202, 209, 243, 244], 1: [4, 
+13, 41, 43, 74, 74, 74, 74, 74, 87, 125, 144, 148, 151, 158, 166, 211, 224, 232, 261], 2: [50, 75, 90, 100, 113, 114, 137, 140, 143, 164, 229, 231, 233, 233, 246, 249, 262, 262, 263], 3: [48, 68, 
+79, 107, 141, 142, 161, 162, 163, 170, 186, 230, 234, 236, 237, 238, 239]}
+        colorlist = ['#9AFF9A', '#00EE00', '#00CD00', '#008B00']
+        rs = {'code':100, 'data':datalist, 'colorlist':colorlist}
     else:
-        pass
-    return HttpResponse(json.dumps([]))
+        rs = {'code':109, 'data':datalist, 'colorlist':colorlist}
+    return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
 def api(request):

@@ -1,47 +1,241 @@
-<html lang='en'>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>chinaz</title>
-    
-    {% load static %}
-    <!-- Bootstrap Styles-->
-    <link href="../static/css/bootstrap.css" rel="stylesheet" />
-    <!-- FontAwesome Styles-->
-    <link href="../static/css/font-awesome.css" rel="stylesheet" />
-    <!-- Morris Chart Styles-->
-    <link href="../static/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
-    <!-- Custom Styles-->
-    <link href="../static/css/custom-styles.css" rel="stylesheet" />
-    <!-- Google Fonts-->
-    
-    <link rel="stylesheet" href="../static/js/Lightweight-Chart/cssCharts.css"> 
-</head>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>位置流量趋势</title>
+        {% load static %}
+        <link rel="stylesheet" href="../static/css/semantic.min.css">
+        <link rel="stylesheet" href="../static/css/style.min.css">
+        <script src="https://d3js.org/d3.v5.js"></script>
+        <script type="text/javascript" src="../static/js/manhadun.js"></script>
+        <script type="text/javascript" src="../static/js/jquery-3.5.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../static/css/style.css">
 
-<body>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-                <div class="row">
-                    <div class="col-lg-3"></div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <select class="form-control">
-                                        <option value ="volvo">Volvo</option>
-                                        <option value ="saab">Saab</option>
-                                        <option value="opel">Opel</option>
-                                        <option value="audi">Audi</option>
-                                    </select>
-                                </div>
-                            </div>    
+        <link href="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.min.css" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.full.min.js"></script>
+    </head>
+    <body>
+        <div class="ui fixed main menu header">
+            <div class="container header_container">
+                <div class="header_container_left">
+                    <a class="header_container_left_title" href="http://47.95.147.13:9999/homepage/">交通可视化</a>
+                    <a href="http://47.95.147.13:9999/homepage/" class="header_container_left_nav">首页</a>
+                    <a href="http://47.95.147.13:9999/overview/" class="header_container_left_nav">概述</a>
+                    <a href="http://47.95.147.13:9999/traffic_trend/" class="header_container_left_nav">位置流量趋势图</a>
+                    <a href="http://47.95.147.13:9999/heatmap/" class="header_container_left_nav">区域热力图</a>
+                    <a href="http://47.95.147.13:9999/api/" class="header_container_left_nav">数据接口</a>
+                </div>
+            </div>
+            
+            <div class="body" style="position:relative;top:0px;margin: 0px;">
+                <div id = "tu" class="root1">
+                    <div class="show_msg2">
+                        <!-- union_sq_table -->
+                        <div id = "union_sq_table">
+                            <div>
+                                <a id = "unionsq" class="header_container_left_nav" style="font-size: 40px;margin-top: 20px;margin-left: 20px;">请选择查询条件：</a>
+                            </div>
+                            <div style="margin-top: 40px;margin-left: 50px;">
+                                <a id = "unionsq" class="header_container_left_nav" style="font-size: 20px;">开始时间</a>
+                            </div>
+                            <div style="margin-top: 40px;margin-left: 100px;">
+                                <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_begin">
+                            </div>
+                            <div style="margin-top: 40px;margin-left: 50px;">
+                                <a id = "unionsq" class="header_container_left_nav" style="font-size: 20px;">开始时间</a>
+                            </div>
+                            <div style="margin-top: 40px;margin-left: 100px;">
+                                <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_end" name="date_end">
+                            </div>
+                            <div style="margin-top: 40px;margin-left: 75px;">
+                                <button class="button-success pure-button">成功按钮</button>
+                            </div>
+                            
+                            
+                            
                         </div>
+
+                    </div>
+                    <div class="svg_sty2">
+                        <svg class="chart">
+                            <defs>
+                                <mask id="Mask0">
+                                    <circle id="circle0" r="150" fill="url(#grad)"  />
+                                </mask>
+                                <mask id="Mask1">
+                                    <circle id="circle1" r="150" fill="url(#grad)"  />
+                              </mask>
+                
+                                <radialGradient
+                                    id="grad"
+                                    cx="0.5"
+                                    cy="0.5"
+                                    r="0.5" >
+                                    <stop offset="0%" stop-color="#fff" stop-opacity='1'/>
+                                    <stop offset="100%" stop-color="#fff" stop-opacity='0' />
+                                </radialGradient>
+                            </defs>
+                
+                            <filter id="inLight" x="-50%" y="-50%" width="200%" height="200%">
+                                <feComponentTransfer in=SourceAlpha>
+                                  <feFuncA type="table" tableValues="1 0" />
+                                </feComponentTransfer>
+                                <feGaussianBlur stdDeviation="4"/>
+                                <feOffset dx="0" dy="1" result="offsetblur"/>
+                                <feFlood flood-color="#d9f939" result="color"/>
+                                <feComposite in2="offsetblur" operator="in"/>
+                                <feComposite in2="SourceAlpha" operator="in" />
+                                <feMerge>
+                                  <feMergeNode in="SourceGraphic" />
+                                  <feMergeNode />
+                                </feMerge>
+                            </filter>
+                
+                            <filter id="outLight" x="-50%" y="-50%"  width="200%" height="200%">
+                                <feDropShadow dx="0" dy="0" stdDeviation="10" flood-color="hsla(180,90%,40%,0.9)" />
+                            </filter>
+                        </svg>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </body>
+<script>
+     $.datetimepicker.setLocale('zh');
+    $('#date_begin').datetimepicker({ format: 'Y-m-d', timepicker: false });
+    $('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false });
+    /**
+     * 基本配置 
+     */
+    const svgWidth = 1100;
+    const svgHeight = 600;
+    const padding = 0;
 
-</body>
+    const svg = d3.select(".chart")
+        .attr("height", svgHeight)
+        .attr("width", svgWidth)
+        .style("background","#123456");
 
+    const x0 = padding;
+    const y0 = padding;
+    const x1 = svgWidth - padding * 2;
+    const y1 = svgHeight - padding * 2;
+    const projection = d3.geoMercator().fitExtent(
+        [
+            [x0, y0],
+            [x1, y1],
+        ], man_zones);
+
+    const pathGenerator = d3.geoPath().projection(projection); //配置上投影
+    // 定义地理路径生成器
+    const mapContainer = svg.append("g"); //添加mapContainer装载地图绘制内容
+    // 加载地图内容
+    console.log(man_zones.features["39"]);
+    f = man_zones.features
+    d = [
+            f[0],
+            f[1]
+        ];
+
+
+    // var url = "http://47.95.147.13:9999/get_heat_dat/";
+    // var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+    // httpRequest.open('POST', 'url', true); //第二步：打开连接
+    // httpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
+    // httpRequest.send();//发送请求 将情头体写在send中
+    // /**
+    //  * 获取数据后的处理程序
+    //  */
+    // httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+    //     if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+    //         var data = JSON.parse(httpRequest.responseText);//获取到服务端返回的数据
+    //         var datalist = data["data"]
+    //         var colorlist = data["colorlist"]
+    //         console.log(json);
+    //         fs = [];
+    //         for (var i = 0;i < 4; i ++){
+    //             var infos = {};
+    //             for(var j = 0;j < man_zones.features.length; j ++){
+    //                 if(datalist[i].indexof(man_zones.features[j]["properties"]["OBJECTID"]) > 0){
+    //                     infos.append(man_zones.features[j]);
+    //                 }
+    //             }
+    //             const mapPath = mapContainer.selectAll("path")
+    //             .data(infos) //数据绑定
+    //             .join("path")
+    //             .attr("d", pathGenerator) //绘制path
+    //             .attr("stroke-width", 0.5)
+    //             .attr("stroke", "#2F90A1")
+    //             .attr("fill", colorlist[i]);
+    //             }
+    //     }
+    // };
+    const mapPath = mapContainer.selectAll("path")
+        .data(d) //数据绑定
+        .join("path")
+        .attr("d", pathGenerator) //绘制path
+        .attr("stroke-width", 0.5)
+        .attr("stroke", "#2F90A1")
+        .attr("fill", "#2F90A1");
+    var datalist = {"0": [12, 24, 42, 45, 88, 116, 120, 127, 127, 128, 128, 152, 153, 194, 202, 209, 243, 244], "1": [4, 
+13, 41, 43, 74, 74, 74, 74, 74, 87, 125, 144, 148, 151, 158, 166, 211, 224, 232, 261], "2": [50, 75, 90, 100, 113, 114, 137, 140, 143, 164, 229, 231, 233, 233, 246, 249, 262, 262, 263], "3": [48, 68, 
+79, 107, 141, 142, 161, 162, 163, 170, 186, 230, 234, 236, 237, 238, 239]};
+    var colorlist = ["#9AFF9A", "#00EE00", "#00CD00", "#008B00"];
+    for (var i = 0;i < 4; i ++){
+        var infos = [];
+        console.log(datalist[i + ""]);
+        for(var j = 0;j < man_zones.features.length; j ++){
+            if( datalist[i + ""].indexOf(man_zones.features[j]["properties"]["OBJECTID"]) >= 0){
+                infos.push(man_zones.features[j]);
+            }
+        }
+        console.log(infos.length);
+        var a = svg.append("g").selectAll("path")
+        .data(infos) //数据绑定
+        .join("path")
+        .attr("d", pathGenerator) //绘制path
+        .attr("stroke-width", 0.5)
+        .attr("stroke", "#2F90A1")
+        .attr("fill", colorlist[i]);
+
+        }
+
+    // // 地图缩放
+    // function zoomed() {
+    //     const t = d3.event.transform;
+    //     mapContainer.attr("transform", `translate(${t.x}, ${t.y}) scale(${t.k})`); //改变mapContainer的位置及缩放
+    // }
+    // const zoom = d3.zoom()
+    //             .scaleExtent([1, 3])  //设置监听范围
+    //             .on("zoom", zoomed);  //设置监听事件
+        
+    // svg.call(zoom); //应用
+
+   
+    //`M${x1}, ${y1} Q${x},${y} ${p.x}, ${p.y}`
+$('#unionsq').click(function(){
+    $('#time_sq_table').hide();
+    $('#murry_table').hide();
+    $('#union_sq_table').show();
+    window.ttype = "b";
+    animate();
+})
+
+$('#timesq').click(function(){
+    $('#time_sq_table').show();
+    $('#murry_table').hide();
+    $('#union_sq_table').hide();
+    window.ttype = "a";
+    animate();
+})
+
+$('#murry').click(function(){
+    $('#time_sq_table').hide();
+    $('#murry_table').show();
+    $('#union_sq_table').hide();
+    window.ttype = "c";
+    animate();
+})
+
+</script>
 </html>

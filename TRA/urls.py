@@ -20,9 +20,11 @@ from . import view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('homepage/', view.homepage),
+    path('heatmap/', view.heatmap),
     path('overview/', view.overview),
     path('traffic_trend/', view.trend),
     path('heatmap/', view.heatmap),
+    path('get_heat_data/', view.get_heat_data),
     path('api/', view.api),
     path('add_data_2017/', view.add_data_2017),
     path('gen_index_data/', view.gen_index_data),
