@@ -32,4 +32,5 @@ urlpatterns = [
     path('add_data_2016/',view.add_data_2016),
 
     path('prediction/', view.prediction),
+    path('get_pre_data/', view.get_pre_data),
 ]

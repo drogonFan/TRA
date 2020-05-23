@@ -92,9 +92,9 @@ $('#date_begin').datetimepicker({ format: 'Y-m-d', timepicker: false });
 $('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false });
 var chartdata = [];
 var ggdata = [];
-function gen_chart(chartdata, ggdata, index){
+function gen_chart(chartdata, chartlabel){
     // 如果没有获取到数据，那么不绘图
-    if (chartdata.length == 0 || ggdata.length == 0){
+    if (chartdata.length == 0){
         return;
     }
     var ctx = document.getElementById('myChart');
@@ -105,22 +105,10 @@ function gen_chart(chartdata, ggdata, index){
             datasets: [
             {
                 label: '人流量相对值',
-                data: ggdata[index], //默认加载星期一 
+                data: ggdata, //默认加载星期一 
                 fillColor : "rgba(220,220,220,0)",
     　　　　　　　// 线的颜色
                 strokeColor : "rgba(220,220,220,1)",
-    　　　　　　　// 点的填充颜色
-                pointColor : "rgba(220,220,220,1)",
-    　　　　　　　　// 点的边线颜色
-                pointStrokeColor : "#fff",
-                borderWidth: 1
-            },
-            {
-                label: '交通流量',
-                data: chartdata[index], //默认加载星期一 
-                fillColor : "rgba(220,220,220,0)",
-    　　　　　　　// 线的颜色
-                strokeColor : "rgba(84 139 84,1)",
     　　　　　　　// 点的填充颜色
                 pointColor : "rgba(220,220,220,1)",
     　　　　　　　　// 点的边线颜色
@@ -132,7 +120,7 @@ function gen_chart(chartdata, ggdata, index){
             scales: {
                 xAxes:[{
                     type: 'linear',
-                    labels: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+                    labels: chartlabel,
                     beginAtZero: true,//是否从零开始
                     min: 0,
                     max: 24,
@@ -159,7 +147,7 @@ $('#location_submit').click(function(){
     //     console.log("cuowu");
     // }
     $.ajax({
-        url: "http://47.95.147.13:9999/gen_pre_data/",
+        url: "http://47.95.147.13:9999/get_pre_data/",
         data: {
             'region':region, 
             'begindate':begindate,
@@ -171,9 +159,9 @@ $('#location_submit').click(function(){
         success: function(data) {
 
             if (data.code == '100'){
-                chartdata = data.data;
-                ggdata = data.gdata;
-                gen_chart(chartdata, ggdata, 0);
+                chartdata = data.predata;
+                labels = data.label;
+                gen_chart(chartdata, labels);
                 
             } else if (data.code == 109){
                 // 

@@ -118,7 +118,7 @@ def get_flyingline_data(request):
     return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
-def gen_index_data(request):
+def get_pre_data(request):
     if request.method == 'POST':
         # 区域，起始时间，终止时间，粒度
         region = int(request.POST['region'])
@@ -128,8 +128,11 @@ def gen_index_data(request):
         for k, v in jiashuju[0].items():
             pre.append({'x':k, 'y':v})
         
-
-        rs = {'code':100, 'predata':pre}
+        if True:
+            labels = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+        else:
+            labels = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+        rs = {'code':100, 'predata':pre, 'label':labels}
     else:
         # 不接受get请求
         rs = {'code':109, 'msg':''}
