@@ -121,14 +121,17 @@ function gen_chart(chartdata, chartlabel){
         options: {
             scales: {
                 xAxes:[{
-                    type: 'linear',
-                    beginAtZero: true,//是否从零开始
-                    ticks:{
-                        min: 0,
-                        max: 24,
-                        stepSize: 1,
-                    },
+                    // type: 'linear',
+                    // beginAtZero: true,//是否从零开始
+                    // ticks:{
+                    //     min: 0,
+                    //     max: 24,
+                    //     stepSize: 1,
+                    // },
+                    // labels:chartlabel,
+                    type : 'category',
                     labels:chartlabel,
+                    distribution:'linear',
                 }]
             }
         }
