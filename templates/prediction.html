@@ -97,6 +97,7 @@ function gen_chart(chartdata, chartlabel){
     if (chartdata.length == 0){
         return;
     }
+    console.log(chartlabel);
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
         type: 'line',
