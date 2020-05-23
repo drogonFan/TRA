@@ -125,6 +125,7 @@ def get_pre_data(request):
 
         # 使用假数据测试
         pre = []
+        print(jiashuju[0])
         for k, v in jiashuju[0].items():
             pre.append({'x':k, 'y':v})
         
