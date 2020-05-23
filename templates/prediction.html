@@ -31,27 +31,54 @@
         
         <div class="body" style="position:relative;height:600px;top:90px;overflow:auto;background:#f7f7f7;">
             <div class="main" >
-                <div class="chaxunshow">
-                    <div class="uptitile">
-                    <h2 style="text-align:left">请选择您要查询的区域:</h2>
+                <div class="chaxunshow2">
+                    <div style="margin-left: 20px;">
+                        <h3 >要查询的区域:</h3>
                     </div>
-                    <select style="margin-left: 20px;"  id="region_select0">
-                        <option value="170">Murray Hill</option>
-                        <option value="230">Times Sq</option>
-                        <option value="234">Union Sq</option>
-                    </select>
-                    <button class="button-secondary pure-button" id="location_submit" style="margin-left: 20px;">查询</button>
+
+                    <div style="margin-left: 20px;">
+                        <select style="margin-left: 20px;"  id="region_select0">
+                            <option value="170">Murray Hill</option>
+                            <option value="230">Times Sq</option>
+                            <option value="234">Union Sq</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-left: 20px;">
+                        <h3>开始时间</h3>
+                    </div>
+
+                    
+                    <input style="margin-left: 20px;" type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_begin">
+                        
+
+                    <div style="margin-left: 20px;">
+                        <h3>结束时间</h3>
+                    </div>
+
+                        <div style="margin-left: 20px;">
+                            <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_end" name="date_end">
+                        </div>
                 </div>
 
-                <div class="weekshow">
-                    <button id = "mon", class="button-secondary pure-button", style="margin-left: 10px;margin-right: 10px;">星期一</button>
-                    <button id = "tues" class="button-secondary pure-button", style="margin-left: 10px;margin-right: 10px;">星期二</button>
-                    <button id = "med" class="button-secondary pure-button", style="margin-left: 10px;margin-right: 10px;">星期三</button>
-                    <button id = "thur" class="button-secondary pure-button", style="margin-left: 10px;margin-right: 10px;">星期四</button>
-                    <button id = "fri" class="button-secondary pure-button", style="margin-left: 10px;margin-right: 10px;">星期五</button>
-                    <button id = "sat" class="button-secondary pure-button", style="margin-left: 10px;margin-right: 10px;">星期六</button>
-                    <button id = "sun" class="button-secondary pure-button", style="margin-left: 10px;margin-right: 10px;">星期日</button>
+                <div class="chaxunshow2">
+                    <div style="margin-left: 20px;">
+                        <h3>粒度</h3>
+                    </div>
+
+                    <div style="margin-left: 20px;">
+                        <select style="margin-left: 0px;"  id="region_select1">
+                            <option value="60">60分钟</option>
+                            <option value="30">30分钟</option>
+                        </select>
+                    </div>
+
+                    <div style="margin-left: 200px;">
+                        <button class="button-secondary pure-button" id="location_submit" style="margin-left: 20px;">查询</button>
+                    </div>
+
                 </div>
+
                 <div class="chartcss" id="chart" >
                     <canvas id="myChart"></canvas>
                 </div>
@@ -60,6 +87,9 @@
     </body>
 
 <script>
+$.datetimepicker.setLocale('zh');
+$('#date_begin').datetimepicker({ format: 'Y-m-d', timepicker: false });
+$('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false });
 var chartdata = [];
 var ggdata = [];
 function gen_chart(chartdata, ggdata, index){
@@ -115,6 +145,9 @@ function gen_chart(chartdata, ggdata, index){
 
 $('#location_submit').click(function(){
     var region = $('#region_select0').val();
+    var begindate = $('#date_begin').val();
+    var enddate = $('#date_end').val();
+    var lidu = $('#region_select1').val();
     // var begindate = $('#date_begin').val();
     // var enddate = $('#date_end').val();
     // var range = $('#range_select0').val();
@@ -126,12 +159,16 @@ $('#location_submit').click(function(){
     //     console.log("cuowu");
     // }
     $.ajax({
-        url: "http://47.95.147.13:9999/gen_index_data/",
-        data: {'region':region},
+        url: "http://47.95.147.13:9999/gen_pre_data/",
+        data: {
+            'region':region, 
+            'begindate':begindate,
+            'enddate':enddate,
+            'lidu':lidu,    
+        },
         type: "POST",
         dataType: "json",
         success: function(data) {
-            //window.location.href = 'http://47.95.147.13:9999/api';
 
             if (data.code == '100'){
                 chartdata = data.data;
@@ -144,35 +181,6 @@ $('#location_submit').click(function(){
         } 
     });
     
-})
-
-$('#mon').click(function(){
-    console.log("mon");
-    gen_chart(chartdata, ggdata, 0);
-})
-
-$('#tues').click(function(){
-    gen_chart(chartdata, ggdata, 1);
-})
-
-$('#med').click(function(){
-    gen_chart(chartdata, ggdata, 2);
-})
-
-$('#thur').click(function(){
-    gen_chart(chartdata, ggdata, 3);
-})
-
-$('#fri').click(function(){
-    gen_chart(chartdata, ggdata, 4);
-})
-
-$('#sat').click(function(){
-    gen_chart(chartdata, ggdata, 5);
-})
-
-$('#sun').click(function(){
-    gen_chart(chartdata, ggdata, 6);
 })
 
 </script>

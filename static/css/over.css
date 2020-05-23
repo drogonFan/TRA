@@ -198,3 +198,11 @@ body {
     text-align:left; /*让div内部文字居中*/
 }
 
+.chaxunshow2{
+	margin-left: 20px;
+	display: flex;
+	justify-content: left; /* 水平居中 */
+	align-items: center;     /* 垂直居中 */
+	width: 100%;
+	height: 60px;
+}

@@ -23,6 +23,9 @@ def heatmap(request):
 def trend(request):
     return render(request, 'traffic_trend.html')
 
+def prediction(request):
+    return render(request, 'prediction.html')
+
 @csrf_exempt
 def get_heat_data(request):
     if request.method == "POST":
@@ -112,6 +115,25 @@ def get_flyingline_data(request):
         rs = {'code':100, 'startpoints':startpoints, 'endpoints':endpoints}
     else:
         rs = {'code':109, 'msg':''}
+    return HttpResponse(json.dumps(rs))
+
+@csrf_exempt
+def gen_index_data(request):
+    if request.method == 'POST':
+        # 区域，起始时间，终止时间，粒度
+        region = int(request.POST['region'])
+
+        # 使用假数据测试
+        pre = []
+        for k, v in jiashuju[0].items():
+            pre.append({'x':k, 'y':v})
+        
+
+        rs = {'code':100, 'predata':pre}
+    else:
+        # 不接受get请求
+        rs = {'code':109, 'msg':''}
+    # 返回json格式数据
     return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
