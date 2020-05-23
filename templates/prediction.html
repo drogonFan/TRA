@@ -103,7 +103,6 @@ function gen_chart(chartdata, chartlabel){
         type: 'line',
         
         data: {
-            labels:chartlabel,
             datasets: [
             {
                 label: '流量预测',
@@ -125,7 +124,7 @@ function gen_chart(chartdata, chartlabel){
                     type: 'linear',
                     beginAtZero: true,//是否从零开始
                     min: 0,
-                    max: 23,
+                    max: 24,
                     stepSize: 1,
                     labels:chartlabel,
                 }]
