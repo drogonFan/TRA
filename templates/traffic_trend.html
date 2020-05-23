@@ -76,7 +76,7 @@ function gen_chart(chartdata, ggdata, index){
             {
                 label: '人流量相对值',
                 data: ggdata[index], //默认加载星期一 
-                fillColor : "rgba(220,220,220,0)",
+                fill:false,
     　　　　　　　// 线的颜色
                 strokeColor : "rgba(220,220,220,1)",
     　　　　　　　// 点的填充颜色
@@ -88,7 +88,7 @@ function gen_chart(chartdata, ggdata, index){
             {
                 label: '交通流量',
                 data: chartdata[index], //默认加载星期一 
-                fillColor : "rgba(220,220,220,0)",
+                fill:false,
     　　　　　　　// 线的颜色
                 strokeColor : "rgba(84 139 84,1)",
     　　　　　　　// 点的填充颜色
@@ -101,12 +101,9 @@ function gen_chart(chartdata, ggdata, index){
         options: {
             scales: {
                 xAxes:[{
-                    type: 'linear',
+                    type: 'category',
                     labels: ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
-                    beginAtZero: true,//是否从零开始
-                    min: 0,
-                    max: 24,
-                    stepSize: 1,
+                    distribution:'linear',
                 }]
             }
         }

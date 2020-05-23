@@ -16,11 +16,10 @@ body {
 	height:100%;
 	margin:0;
 	padding: 0;
-	display: flex;
 }
 
 .show_msg{
-	margin-top: 120px;
+	margin-top: 30px;
 	margin-left: -10px;
 	height: 100%;
 	width: 30%;
@@ -30,7 +29,7 @@ body {
 
 .show_msg2{
 	text-align: left;
-	margin-top: 120px;
+	margin-top: 30px;
 	margin-left: -10px;
 	height: 100%;
 	width: 40%;
