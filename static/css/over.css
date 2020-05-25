@@ -94,14 +94,14 @@ body {
 
 .photo_left{
     float:left;
-	width:50%;
+	width:80%;
 	margin: 0;
 	padding: 10px;
 }
 
 .intro_right{
     float:right;
-	width:50%;
+	width:20%;
 	height: 400px;
 	text-align:middle;
 	vertical-align:middle;
@@ -110,12 +110,14 @@ body {
 
 .photo_right{
     float:right;
-    width:20%;
+    width:80%;
 }
 
 .intro_left{
     float:left;
-    width:80%;
+    width:20%;
+	margin: 0;
+	padding: 10px;
 }
 
 .demo {
@@ -128,6 +130,19 @@ body {
 .main{
     text-align:left; /*让div内部文字居中*/
     background-color: #fff;
+    border-radius: 20px;
+    width: 90%;
+    height: 100%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.main_overview{
+    text-align:left; /*让div内部文字居中*/
     border-radius: 20px;
     width: 90%;
     height: 100%;
