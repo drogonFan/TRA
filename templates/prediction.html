@@ -19,13 +19,13 @@
     <div class="ui fixed main menu header">
         <div class="container header_container">
             <div class="header_container_left">
-                <a class="header_container_left_title" href="http://47.95.147.13:9999/homepage/">交通可视化</a>
-                    <a href="http://47.95.147.13:9999/homepage/" class="header_container_left_nav">首页</a>
-                    <a href="http://47.95.147.13:9999/overview/" class="header_container_left_nav">概述</a>
-                    <a href="http://47.95.147.13:9999/traffic_trend/" class="header_container_left_nav">位置流量趋势图</a>
-                    <a href="http://47.95.147.13:9999/heatmap/" class="header_container_left_nav">区域热力图</a>
-                    <a href="http://47.95.147.13:9999/prediction/" class="header_container_left_nav">流量预测</a>
-                    <a href="http://47.95.147.13:9999/api/" class="header_container_left_nav">数据接口</a>
+                <a class="header_container_left_title">区域流量预测</a>
+                <a href="http://47.95.147.13:9999/overview/" class="header_container_left_nav">概述</a>
+                <a href="http://47.95.147.13:9999/homepage/" class="header_container_left_nav">人口迁徙情况</a>
+                <a href="http://47.95.147.13:9999/traffic_trend/" class="header_container_left_nav">区域流量趋势</a>
+                <a href="http://47.95.147.13:9999/heatmap/" class="header_container_left_nav">区域流量密度</a>
+                <a href="http://47.95.147.13:9999/prediction/" class="header_container_left_nav">区域流量预测</a>
+                <a href="http://47.95.147.13:9999/api/" class="header_container_left_nav">数据接口</a>
             </div>
         </div>
         
@@ -88,16 +88,55 @@
 
 <script>
 $.datetimepicker.setLocale('zh');
-$('#date_begin').datetimepicker({ format: 'Y-m-d', timepicker: false });
-$('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false });
+$('#date_begin').datetimepicker({ format: 'Y-m-d', timepicker: false ,startDate:'2017/01/01'});
+$('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false ,startDate:'2017/01/01'});
 var chartdata = [];
 var ggdata = [];
-function gen_chart(chartdata, chartlabel){
+var colorslist = ["rgba(135,206,235,1)", "rgba(135,206,250,1)", "rgba(70,130,180,1)", "rgba(176,196,222,1)",]
+function gen_chart(chartdata,predata, predate, chartlabel){
     // 如果没有获取到数据，那么不绘图
     if (chartdata.length == 0){
         return;
     }
-    console.log(chartdata)
+    var chartdataset = []
+    var i = 0;
+    for (var key in chartdata) {
+        chartdataset.push(
+            {
+                label: key,
+                data: chartdata[key],
+                backgroundColor: colorslist[i],
+				borderColor: colorslist[i], 
+                fill: false,
+                /// fillColor : "rgba(220,220,220,0)",
+    　　　　　　　// 线的颜色
+                strokeColor : "rgba(0,191,255,1)",
+    　　　　　　　// 点的填充颜色
+                pointColor : "rgba(0,191,255,1)",
+    　　　　　　　　// 点的边线颜色
+                pointStrokeColor : "#fff",
+                borderWidth: 1
+            }
+        );
+        i = i + 1;
+    }
+    chartdataset.push({
+                label: predate + "预测",
+                data: predata,
+                backgroundColor: "rgba(0,191,255,1)",
+				borderColor: "rgba(0,191,255,1)", 
+                fill: false,
+                /// fillColor : "rgba(220,220,220,0)",
+    　　　　　　　// 线的颜色
+                strokeColor : "rgba(0,191,255,1)",
+    　　　　　　　// 点的填充颜色
+                pointColor : "rgba(0,191,255,1)",
+    　　　　　　　　// 点的边线颜色
+                pointStrokeColor : "#fff",
+                borderWidth: 1
+            }
+        );
+
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
         type: 'line',
@@ -109,8 +148,7 @@ function gen_chart(chartdata, chartlabel){
             pointBorderWidth: 2,//数据点边框的宽度
             pointRadius: 2, //数据点的大小
 
-            datasets: [
-            {
+            datasets: [{
                 label: '流量预测',
                 data: chartdata,
                 backgroundColor: "rgba(0,191,255,1)",
@@ -156,9 +194,11 @@ $('#location_submit').click(function(){
         success: function(data) {
 
             if (data.code == '100'){
-                chartdata = data.predata;
+                chartdata = data.chartdata;
+                predata = data.predata;
+                predate = data.predate;
                 labels = data.label;
-                gen_chart(chartdata, labels);
+                gen_chart(chartdata,predata, predate, labels);
                 
             } else if (data.code == 109){
                 // 

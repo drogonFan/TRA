@@ -7,9 +7,11 @@ from rest_framework import routers, serializers, viewsets
 from data.models import Record, OldRecord
 from django.views.decorators.csrf import csrf_exempt
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 import django.utils.timezone as timezone
 from TRA.gginfos import gginfo_170,gginfo_230,gginfo_234, jiashuju
+import copy
+import random
 
 def homepage(request):
     return render(request, 'index.html')
@@ -29,7 +31,7 @@ def prediction(request):
 @csrf_exempt
 def get_heat_data(request):
     if request.method == "POST":
-        datalist = {0: [12, 24, 42, 45, 88, 116, 120, 127, 127, 128, 128, 152, 153, 194, 202, 209, 243, 244], 1: [4, 
+        datalist = {0: [12, 24, 42, 45, 88, 116, 120, 127, 127, 128, 128, 152, 153, 194, 202, 209, 243, 244, 103, 104, 105], 1: [4, 
 13, 41, 43, 74, 74, 74, 74, 74, 87, 125, 144, 148, 151, 158, 166, 211, 224, 232, 261], 2: [50, 75, 90, 100, 113, 114, 137, 140, 143, 164, 229, 231, 233, 233, 246, 249, 262, 262, 263], 3: [48, 68, 
 79, 107, 141, 142, 161, 162, 163, 170, 186, 230, 234, 236, 237, 238, 239]}
         colorlist = ['#9AFF9A', '#00EE00', '#00CD00', '#008B00']
@@ -105,7 +107,7 @@ def gen_index_data(request):
             week = re.pickup_datetime.weekday()
             weeklist[week][re.pickup_datetime.hour] += 1
         # 使用假数据测试
-        weeklist = jiashuju
+        weeklist = copy.deepcopy(jiashuju)
         for i in range(7):
             data = []
             for k,v in weeklist[i].items():
@@ -150,19 +152,28 @@ def get_pre_data(request):
         region = int(request.POST['region'])
         begindate = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
         enddate = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
-
-        
-        # 使用假数据测试
+        days = (enddate - begindate).days
+        starttime = begindate + timedelta(days=-1)
+        delta = timedelta(days=1)
+        print(days)
+        rs = {}
+        for i in range(days):        
+            # 使用假数据测试
+            week = random.randint(0, 7)
+            pre = []
+            for k, v in jiashuju[i].items():
+                pre.append({'x':k, 'y':v})
+            starttime += delta
+            rs[starttime.strftime('%Y-%m-%d')] = pre
         pre = []
-        print(jiashuju[0])
         for k, v in jiashuju[0].items():
             pre.append({'x':k, 'y':v})
-        
+        predate = starttime.strftime('%Y-%m-%d')
         if True:
             labels = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
         else:
             labels = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        rs = {'code':100, 'predata':pre, 'label':labels}
+        rs = {'code':100, 'chartdata':rs, 'predata':pre,'predate':predate,'label':labels}
     else:
         # 不接受get请求
         rs = {'code':109, 'msg':''}
