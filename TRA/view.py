@@ -154,7 +154,7 @@ def deal_data(datalist):
         if data['y'] == maxy:
             data['y'] = 1
         else:
-            data['y'] = data['y'] / maxy + random.randint(-100, 100) / 100
+            data['y'] = data['y'] / maxy + random.randint(-50, 50) / 1000
             if data['y'] > 1:
                 data['y'] = 0.99
             elif data['y'] < 0:
