@@ -102,11 +102,18 @@ function gen_chart(chartdata, chartlabel){
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
+            borderColor: 'green',
+            borderWidth: 2,
+            pointBackgroundColor: 'purple',//数据点的填充色
+            pointBorderColor: 'blue',//数据点边框颜色
+            pointBorderWidth: 2,//数据点边框的宽度
+            pointRadius: 2, //数据点的大小
+
             datasets: [
             {
                 label: '流量预测',
                 data: chartdata, 
-                fill: true,
+                fill: false,
                 /// fillColor : "rgba(220,220,220,0)",
     　　　　　　　// 线的颜色
                 strokeColor : "rgba(0,191,255,1)",
