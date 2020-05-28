@@ -149,7 +149,7 @@ def deal_data(datalist):
     maxy = 0
     for data in datalist:
         if maxy < data['y']:
-            maxy = data['t']
+            maxy = data['y']
     for data in datalist:
         if data['y'] == maxy:
             data['y'] = 1
