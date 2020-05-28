@@ -50,7 +50,7 @@
                                 <input type="text" placeholder="年-月-日" class="datetimepicker field_input" id="date_end" name="date_end">
                             </div>
                             <div style="margin-top: 40px;margin-left: 75px;">
-                                <button class="button-success pure-button">查询</button>
+                                <button id="look" class="button-success pure-button">查询</button>
                             </div>
                             
                             
@@ -131,12 +131,13 @@
     // 定义地理路径生成器
     const mapContainer = svg.append("g"); //添加mapContainer装载地图绘制内容
     // 加载地图内容
-    console.log(man_zones.features["39"]);
-    f = man_zones.features
-    d = [
-            f[0],
-            f[1]
-        ];
+    const mapPath = mapContainer.selectAll("path")
+        .data(man_zones.features) //数据绑定
+        .join("path")
+        .attr("d", pathGenerator) //绘制path
+        .attr("stroke-width", 0.5)
+        .attr("stroke", "#2F90A1")
+        .attr("fill", "#FFFAFA");
 
 
     // var url = "http://47.95.147.13:9999/get_heat_dat/";
@@ -171,70 +172,6 @@
     //             }
     //     }
     // };
-    const mapPath = mapContainer.selectAll("path")
-        .data(d) //数据绑定
-        .join("path")
-        .attr("d", pathGenerator) //绘制path
-        .attr("stroke-width", 0.5)
-        .attr("stroke", "#2F90A1")
-        .attr("fill", "#2F90A1");
-    var datalist = {"0": [12, 24, 42, 45, 88, 116, 120, 127, 127, 128, 128, 152, 153, 194, 202, 209, 243, 244], "1": [4, 
-13, 41, 43, 74, 74, 74, 74, 74, 87, 125, 144, 148, 151, 158, 166, 211, 224, 232, 261], "2": [50, 75, 90, 100, 113, 114, 137, 140, 143, 164, 229, 231, 233, 233, 246, 249, 262, 262, 263], "3": [48, 68, 
-79, 107, 141, 142, 161, 162, 163, 170, 186, 230, 234, 236, 237, 238, 239]};
-    var colorlist = ["#7ebaf7", "#4e9eef", "#1985f0", "#0869c9"];
-    for (var i = 0;i < 4; i ++){
-        var infos = [];
-        for(var j = 0;j < man_zones.features.length; j ++){
-            if( datalist[i + ""].indexOf(man_zones.features[j]["properties"]["OBJECTID"]) >= 0){
-                infos.push(man_zones.features[j]);
-            }
-        }
-        console.log(infos.length);
-        var a = svg.append("g").selectAll("path")
-        .data(infos) //数据绑定
-        .join("path")
-        .attr("d", pathGenerator) //绘制path
-        .attr("stroke-width", 0.5)
-        .attr("stroke", "#2F90A1")
-        .attr("fill", colorlist[i]);
-    }
-
-    // // 地图缩放
-    // function zoomed() {
-    //     const t = d3.event.transform;
-    //     mapContainer.attr("transform", `translate(${t.x}, ${t.y}) scale(${t.k})`); //改变mapContainer的位置及缩放
-    // }
-    // const zoom = d3.zoom()
-    //             .scaleExtent([1, 3])  //设置监听范围
-    //             .on("zoom", zoomed);  //设置监听事件
-        
-    // svg.call(zoom); //应用
-
-   
-    //`M${x1}, ${y1} Q${x},${y} ${p.x}, ${p.y}`
-$('#unionsq').click(function(){
-    $('#time_sq_table').hide();
-    $('#murry_table').hide();
-    $('#union_sq_table').show();
-    window.ttype = "b";
-    animate();
-})
-
-$('#timesq').click(function(){
-    $('#time_sq_table').show();
-    $('#murry_table').hide();
-    $('#union_sq_table').hide();
-    window.ttype = "a";
-    animate();
-})
-
-$('#murry').click(function(){
-    $('#time_sq_table').hide();
-    $('#murry_table').show();
-    $('#union_sq_table').hide();
-    window.ttype = "c";
-    animate();
-})
 
 
 function makeHeatMap(){
@@ -256,5 +193,29 @@ function makeHeatMap(){
         .attr("fill", colorlist[i]);
     }
 }
+
+$('#look').click(function(){
+    var datalist = {"0": [12, 24, 42, 45, 88, 116, 120, 127, 127, 128, 128, 152, 153, 194, 202, 209, 243, 244], "1": [4, 
+13, 41, 43, 74, 74, 74, 74, 74, 87, 125, 144, 148, 151, 158, 166, 211, 224, 232, 261], "2": [50, 75, 90, 100, 113, 114, 137, 140, 143, 164, 229, 231, 233, 233, 246, 249, 262, 262, 263], "3": [48, 68, 
+79, 107, 141, 142, 161, 162, 163, 170, 186, 230, 234, 236, 237, 238, 239]};
+    var colorlist = ["#7ebaf7", "#4e9eef", "#1985f0", "#0869c9"];
+    for (var i = 0;i < 4; i ++){
+        var infos = [];
+        for(var j = 0;j < man_zones.features.length; j ++){
+            if( datalist[i + ""].indexOf(man_zones.features[j]["properties"]["OBJECTID"]) >= 0){
+                infos.push(man_zones.features[j]);
+            }
+        }
+        console.log(infos.length);
+        var a = svg.append("g").selectAll("path")
+        .data(infos) //数据绑定
+        .join("path")
+        .attr("d", pathGenerator) //绘制path
+        .attr("stroke-width", 0.5)
+        .attr("stroke", "#2F90A1")
+        .attr("fill", colorlist[i]);
+    }
+})
+
 </script>
 </html>
