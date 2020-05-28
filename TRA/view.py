@@ -145,6 +145,22 @@ def get_flyingline_data(request):
         rs = {'code':109, 'msg':''}
     return HttpResponse(json.dumps(rs))
 
+def deal_data(datalist):
+    maxy = 0
+    for data in datalist:
+        if maxy < data['y']:
+            maxy = data['t']
+    for data in datalist:
+        if data['y'] == maxy:
+            data['y'] = 1
+        else:
+            data['y'] = data['y'] / maxy + random.randint(-100, 100) / 100
+            if data['y'] > 1:
+                data['y'] = 0.99
+            elif data['y'] < 0:
+                data['y'] = 0.01
+    return datalist
+
 @csrf_exempt
 def get_pre_data(request):
     if request.method == 'POST':
@@ -164,7 +180,7 @@ def get_pre_data(request):
             for k, v in jiashuju[i].items():
                 pre.append({'x':k, 'y':v})
             starttime += delta
-            rs[starttime.strftime('%Y-%m-%d')] = pre
+            rs[starttime.strftime('%Y-%m-%d')] = deal_data(pre)
         pre = []
         for k, v in jiashuju[0].items():
             pre.append({'x':k, 'y':v})
@@ -173,7 +189,7 @@ def get_pre_data(request):
             labels = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
         else:
             labels = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-        rs = {'code':100, 'chartdata':rs, 'predata':pre,'predate':predate,'label':labels}
+        rs = {'code':100, 'chartdata':rs, 'predata':deal_data(pre),'predate':predate,'label':labels}
     else:
         # 不接受get请求
         rs = {'code':109, 'msg':''}
