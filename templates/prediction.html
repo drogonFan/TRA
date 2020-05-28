@@ -97,11 +97,10 @@ function gen_chart(chartdata, chartlabel){
     if (chartdata.length == 0){
         return;
     }
-    console.log(chartlabel);
+    console.log(chartdata)
     var ctx = document.getElementById('myChart');
     var myChart = new Chart(ctx, {
         type: 'line',
-        
         data: {
             datasets: [
             {
@@ -135,16 +134,6 @@ $('#location_submit').click(function(){
     var begindate = $('#date_begin').val();
     var enddate = $('#date_end').val();
     var lidu = $('#region_select1').val();
-    // var begindate = $('#date_begin').val();
-    // var enddate = $('#date_end').val();
-    // var range = $('#range_select0').val();
-    // var oDate1 = new Date(begindate);
-    // var oDate2 = new Date(enddate);
-    // if (oDate1 < oDate2){
-    //     console.log("right");
-    // } else {
-    //     console.log("cuowu");
-    // }
     $.ajax({
         url: "http://47.95.147.13:9999/get_pre_data/",
         data: {
