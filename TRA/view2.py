@@ -53,71 +53,34 @@ def api(request):
     return HttpResponse(json.dumps(rs))
 
 def heat(request):
-    if request.method == 'POST':
-        begindate = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
-        enddate = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
-        begindate = begindate.replace(tzinfo=timezone.utc)
-        enddate = enddate.replace(tzinfo=timezone.utc)
-        # rec = Record.objects.filter(pickup_datetime__range=(begindate, enddate))
-        # # datalist, quartiles = cal(rec)
-        datamap = {}
-        for i in range(4):
-            datamap[i] = []
-
-        # for info, shape in zip(map.comarques_info, map.comarques):
-        #     if info['borough'] == 'Manhattan':
-        #         location_ID = info['LocationID']
-        #         peo = datalist[location_ID]
-        #         if peo < quartiles[0]:
-        #             datamap[0].append(location_ID)
-        #         elif peo < quartiles[1]:
-        #             datamap[1].append(location_ID)
-        #         elif peo < quartiles[2]:
-        #             datamap[2].append(location_ID)
-        #         else:
-        #             datamap[3].append(location_ID)
-        rs = {'code':100, 'data':datamap}
-    else:
-        # 不接受get请求
-        rs = {'code':109, 'msg':''}
-    # 返回json格式数据
-    return HttpResponse(json.dumps(rs))
-
+    begindate = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
+    enddate = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
+    begindate = begindate.replace(tzinfo=timezone.utc)
+    enddate = enddate.replace(tzinfo=timezone.utc)
 
 @csrf_exempt
 def gen_index_data(request):
     if request.method == 'POST':
-        # 区域，起始时间，终止时间，粒度
         region = int(request.POST['region'])
-
-        # 从数据库中读取数据（根据区域以及时间限制）
-        rec = Record.objects.filter(DOLocationID=region)
+        rec = Record.objects.filter(DOLocationID=region).filter()
         weeklist = {}
-
         for i in range(7):
             hourlist = {}
             for j in range(24):
                 hourlist[j] = 0
             weeklist[i] = hourlist
-        
         # 统计数目
         for re in rec:
             week = re.pickup_datetime.weekday()
             weeklist[week][re.pickup_datetime.hour] += 1
-        # 使用假数据测试
-        weeklist = jiashuju
+        # 格式化数据
         for i in range(7):
             data = []
             for k,v in weeklist[i].items():
                 data.append({'x':k, 'y':v})
             weeklist[i] = data
-        
-        if region == 170:
-            gdata = gginfo_170
-        elif region == 230:
-            gdata = gginfo_230
-        else:
-            gdata = gginfo_234
+        # 调取爬虫结果，获取人流量
+        gdata = get_ggdata(region)
         rs = {'code':100, 'data':weeklist, 'gdata':gdata}
     else:
         # 不接受get请求
@@ -132,15 +95,20 @@ def get_flyingline_data(request):
         data = json.loads(request.body)
         # 获取用户输入地点
         region = data['region']
-        rec = OldRecord.objects.filter(ttype=region)[:30]
+        # 计算最近10秒
+        now = datetime.now()
+        last = now + datetime.timedelta(seconds=-10)
+        # 获取数据
+        rec = OldRecord.objects.filter(ttype=region).filter(pickup_datetime__range=(last, now))
         startpoints = []
         endpoints = []
+        # 格式化数据，提取上车下车地点
         for r in rec:
             startpoints.append([r.uplon, r.uplat])
             endpoints.append([r.droplon, r.droplat])
         rs = {'code':100, 'startpoints':startpoints, 'endpoints':endpoints}
     else:
-        rs = {'code':109, 'msg':''}
+        rs = {'code':109, 'msg':'Do not accept get requests'}
     return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
@@ -151,6 +119,7 @@ def get_pre_data(request):
         begindate = datetime.strptime(request.POST['begindate'] + ' 00:00:00', '%Y-%m-%d %H:%M:%S')
         enddate = datetime.strptime(request.POST['enddate'] + ' 23:59:59', '%Y-%m-%d %H:%M:%S')
 
+        rec = OldRecord.objects.filter(ttype=region).filter(pickup_datetime__range=(begindate, enddate))
         
         # 使用假数据测试
         pre = []
@@ -161,7 +130,7 @@ def get_pre_data(request):
         if True:
             labels = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
         else:
-            labels = ['0:00', '1:00', '2:00', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+            labels = ['0:00', '1:00', '1:30','2:00', '2:30', '3:00', '4:00', '5:00', '6:00', '7:00', '8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00']
         rs = {'code':100, 'predata':pre, 'label':labels}
     else:
         # 不接受get请求

@@ -184,7 +184,6 @@
     var colorlist = ["#7ebaf7", "#4e9eef", "#1985f0", "#0869c9"];
     for (var i = 0;i < 4; i ++){
         var infos = [];
-        console.log(datalist[i + ""]);
         for(var j = 0;j < man_zones.features.length; j ++){
             if( datalist[i + ""].indexOf(man_zones.features[j]["properties"]["OBJECTID"]) >= 0){
                 infos.push(man_zones.features[j]);
@@ -198,8 +197,7 @@
         .attr("stroke-width", 0.5)
         .attr("stroke", "#2F90A1")
         .attr("fill", colorlist[i]);
-
-        }
+    }
 
     // // 地图缩放
     // function zoomed() {
@@ -238,5 +236,25 @@ $('#murry').click(function(){
     animate();
 })
 
+
+function makeHeatMap(){
+    var colorlist = ["#7ebaf7", "#4e9eef", "#1985f0", "#0869c9"];
+    for (var i = 0;i < 4; i ++){
+        var infos = [];
+        for(var j = 0;j < man_zones.features.length; j ++){
+            if( datalist[i + ""].indexOf(man_zones.features[j]["properties"]["OBJECTID"]) >= 0){
+                infos.push(man_zones.features[j]);
+            }
+        }
+        console.log(infos.length);
+        var a = svg.append("g").selectAll("path")
+        .data(infos) //数据绑定
+        .join("path")
+        .attr("d", pathGenerator) //绘制path
+        .attr("stroke-width", 0.5)
+        .attr("stroke", "#2F90A1")
+        .attr("fill", colorlist[i]);
+    }
+}
 </script>
 </html>

@@ -24,12 +24,6 @@ class Record(models.Model):
         db_table = 'nyc_taxi'
 
 class OldRecord(models.Model):
-    # lpep_pickup_datetime,lpep_dropoff_datetime,
-    # total_amount, extra
-
-    # ratecodeid,pickup_longitude,pickup_latitude,dropoff_longitude,dropoff_latitude,
-    # passenger_count,trip_distance,fare_amount,extra,mta_tax,tip_amount,tolls_amount,
-    # improvement_surcharge,total_amount,payment_type,trip_type 
     oid = models.AutoField(primary_key = True)
     ttype = models.CharField(max_length=2)
     pickup_datetime = models.DateTimeField('上车时间', default = timezone.now)
