@@ -92,7 +92,7 @@ $('#date_begin').datetimepicker({ format: 'Y-m-d', timepicker: false ,startDate:
 $('#date_end').datetimepicker({ format: 'Y-m-d', timepicker: false ,startDate:'2017/01/01'});
 var chartdata = [];
 var ggdata = [];
-var colorslist = ["rgba(135,206,235,1)", "rgba(135,206,250,1)", "rgba(70,130,180,1)", "rgba(176,196,222,1)",]
+var colorslist = ["rgba(255,0,0,1)", "rgba(255,165,0,1)", "rgba(255,255,0,1)", "rgba(0,255,0,1)","rgba(0,127,255,1)","rgba(0,0,255,1)","rgba(139,0,255,1)",]
 function gen_chart(chartdata,predata, predate, chartlabel){
     // 如果没有获取到数据，那么不绘图
     if (chartdata.length == 0){
@@ -105,8 +105,8 @@ function gen_chart(chartdata,predata, predate, chartlabel){
             {
                 label: key,
                 data: chartdata[key],
-                backgroundColor: colorslist[i],
-				borderColor: colorslist[i], 
+                backgroundColor: colorslist[i % 7],
+				borderColor: colorslist[i % 7], 
                 fill: false,
                 /// fillColor : "rgba(220,220,220,0)",
     　　　　　　　// 线的颜色
