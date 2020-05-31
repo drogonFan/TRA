@@ -5,6 +5,13 @@ body {
     background: #123456;
 }
 
+body1 {
+    display: block;
+    margin: 0px;
+	padding: 0px;
+    background: #123456;
+}
+
 .root {
 	margin:0;
 	padding: 0;

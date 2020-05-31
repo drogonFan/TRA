@@ -1,46 +1,278 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>位置流量趋势</title>
-        <link rel="stylesheet" href="../static/css/jquery.datetimepicker.css">
-        <link rel="stylesheet" href="../static/css/semantic.min.css">
-        <link rel="stylesheet" href="../static/css/style.min.css">
-        <link rel="stylesheet" href="../static/css/over.css">
+<!DOCTYPE html><html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <style type="text/css">
-            table
-            {
-                border-collapse: collapse;
-                margin: 0 auto;
-                text-align: center;
-            }
-            table td, table th
-            {
-                border: 1px solid #cad9ea;
-                color: #666;
-                height: 30px;
-            }
-            table thead th
-            {
-                background-color: #CCE8EB;
-                width: 100px;
-            }
-            table tr:nth-child(odd)
-            {
-                background: #fff;
-            }
-            table tr:nth-child(even)
-            {
-                background: #F5FAFA;
-            }
-        </style>
-    </head>
-<body>
+    <title>位置流量趋势</title>
+    <link rel="stylesheet" href="../static/css/jquery.datetimepicker.css">
+    <link rel="stylesheet" href="../static/css/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/style.min.css">
+    <link rel="stylesheet" href="../static/css/over.css">
+    
+    <link rel="stylesheet" href="file:///c:\Users\Coco\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.5.10\node_modules\@shd101wyy\mume\dependencies\katex\katex.min.css">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <style>
+    /**
+* prism.js Github theme based on GitHub's theme.
+* @author Sam Clarke
+*/
+code[class*="language-"],
+pre[class*="language-"] {
+color: #333;
+background: none;
+font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+text-align: left;
+white-space: pre;
+word-spacing: normal;
+word-break: normal;
+word-wrap: normal;
+line-height: 1.4;
+
+-moz-tab-size: 8;
+-o-tab-size: 8;
+tab-size: 8;
+
+-webkit-hyphens: none;
+-moz-hyphens: none;
+-ms-hyphens: none;
+hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+padding: .8em;
+overflow: auto;
+/* border: 1px solid #ddd; */
+border-radius: 3px;
+/* background: #fff; */
+background: #f5f5f5;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+padding: .1em;
+border-radius: .3em;
+white-space: normal;
+background: #f5f5f5;
+}
+
+.token.comment,
+.token.blockquote {
+color: #969896;
+}
+
+.token.cdata {
+color: #183691;
+}
+
+.token.doctype,
+.token.punctuation,
+.token.variable,
+.token.macro.property {
+color: #333;
+}
+
+.token.operator,
+.token.important,
+.token.keyword,
+.token.rule,
+.token.builtin {
+color: #a71d5d;
+}
+
+.token.string,
+.token.url,
+.token.regex,
+.token.attr-value {
+color: #183691;
+}
+
+.token.property,
+.token.number,
+.token.boolean,
+.token.entity,
+.token.atrule,
+.token.constant,
+.token.symbol,
+.token.command,
+.token.code {
+color: #0086b3;
+}
+
+.token.tag,
+.token.selector,
+.token.prolog {
+color: #63a35c;
+}
+
+.token.function,
+.token.namespace,
+.token.pseudo-element,
+.token.class,
+.token.class-name,
+.token.pseudo-class,
+.token.id,
+.token.url-reference .token.variable,
+.token.attr-name {
+color: #795da3;
+}
+
+.token.entity {
+cursor: help;
+}
+
+.token.title,
+.token.title .token.punctuation {
+font-weight: bold;
+color: #1d3e81;
+}
+
+.token.list {
+color: #ed6a43;
+}
+
+.token.inserted {
+background-color: #eaffea;
+color: #55a532;
+}
+
+.token.deleted {
+background-color: #ffecec;
+color: #bd2c00;
+}
+
+.token.bold {
+font-weight: bold;
+}
+
+.token.italic {
+font-style: italic;
+}
+
+
+/* JSON */
+.language-json .token.property {
+color: #183691;
+}
+
+.language-markup .token.tag .token.punctuation {
+color: #333;
+}
+
+/* CSS */
+code.language-css,
+.language-css .token.function {
+color: #0086b3;
+}
+
+/* YAML */
+.language-yaml .token.atrule {
+color: #63a35c;
+}
+
+code.language-yaml {
+color: #183691;
+}
+
+/* Ruby */
+.language-ruby .token.function {
+color: #333;
+}
+
+/* Markdown */
+.language-markdown .token.url {
+color: #795da3;
+}
+
+/* Makefile */
+.language-makefile .token.symbol {
+color: #795da3;
+}
+
+.language-makefile .token.variable {
+color: #183691;
+}
+
+.language-makefile .token.builtin {
+color: #0086b3;
+}
+
+/* Bash */
+.language-bash .token.keyword {
+color: #0086b3;
+}
+
+/* highlight */
+pre[data-line] {
+position: relative;
+padding: 1em 0 1em 3em;
+}
+pre[data-line] .line-highlight-wrapper {
+position: absolute;
+top: 0;
+left: 0;
+background-color: transparent;
+display: block;
+width: 100%;
+}
+
+pre[data-line] .line-highlight {
+position: absolute;
+left: 0;
+right: 0;
+padding: inherit 0;
+margin-top: 1em;
+background: hsla(24, 20%, 50%,.08);
+background: linear-gradient(to right, hsla(24, 20%, 50%,.1) 70%, hsla(24, 20%, 50%,0));
+pointer-events: none;
+line-height: inherit;
+white-space: pre;
+}
+
+pre[data-line] .line-highlight:before, 
+pre[data-line] .line-highlight[data-end]:after {
+content: attr(data-start);
+position: absolute;
+top: .4em;
+left: .6em;
+min-width: 1em;
+padding: 0 .5em;
+background-color: hsla(24, 20%, 50%,.4);
+color: hsl(24, 20%, 95%);
+font: bold 65%/1.5 sans-serif;
+text-align: center;
+vertical-align: .3em;
+border-radius: 999px;
+text-shadow: none;
+box-shadow: 0 1px white;
+}
+
+pre[data-line] .line-highlight[data-end]:after {
+content: attr(data-end);
+top: auto;
+bottom: .4em;
+}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ul,html body>ol{margin-bottom:16px}html body ul,html body ol{padding-left:2em}html body ul.no-list,html body ol.no-list{padding:0;list-style-type:none}html body ul ul,html body ul ol,html body ol ol,html body ol ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:bold;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:bold}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em !important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::before,html body code::after{letter-spacing:-0.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em !important;word-break:normal;white-space:pre;background:transparent;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em !important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:before,html body pre tt:before,html body pre code:after,html body pre tt:after{content:normal}html body p,html body blockquote,html body ul,html body ol,html body dl,html body pre{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body pre,html body code{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .pagebreak,.markdown-preview .newpage{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center !important}.markdown-preview:not([for="preview"]) .code-chunk .btn-group{display:none}.markdown-preview:not([for="preview"]) .code-chunk .status{display:none}.markdown-preview:not([for="preview"]) .code-chunk .output-div{margin-bottom:16px}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0}@media screen and (min-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode]) .markdown-preview{font-size:14px !important;padding:1em}}@media print{html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for="html-export"]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,0.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,0.66);border:4px solid rgba(150,150,150,0.66);background-clip:content-box}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{padding:0 1.6em;margin-top:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc li{margin-bottom:.8em}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc ul{list-style-type:none}html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% -  300px);padding:2em calc(50% - 457px -  150px);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for="html-export"]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for="html-export"]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+    </style>
+  </head>
+
+
+
+  <body for="html-export">
+
     <div class="ui fixed main menu header">
         <div class="container header_container">
             <div class="header_container_left">
-                <a class="header_container_left_title">交通可视化系统</a>
+                <a  href="http://47.95.147.13:9999/overview/" class="header_container_left_title">交通可视化系统</a>
                 <a href="http://47.95.147.13:9999/overview/" class="header_container_left_nav">概述</a>
                 <a href="http://47.95.147.13:9999/homepage/" class="header_container_left_nav">人口迁徙情况</a>
                 <a href="http://47.95.147.13:9999/traffic_trend/" class="header_container_left_nav">区域流量趋势</a>
@@ -49,86 +281,494 @@
                 <a href="http://47.95.147.13:9999/api/" class="header_container_left_nav">数据接口</a>
             </div>
         </div>
-        
-        <div class="body" style="position:relative;height:500px;top:130px;overflow: auto;">
-            <div class="main_overview">
-                <div>
-                    <h1 align="center" style="margin-top: 20px;">数据接口概述</h1>
-                </div>
-
-                <br><br>
-
-                <div class="tu1">
-                    <table width="90%" class="table">
-                        <caption>
-                            <h2>
-                                添加数据接口</h2>
-                        </caption>
-                        <thead>
-                            <tr>
-                                <th>
-                                    车间
-                                </th>
-                                <th>
-                                    产量
-                                </th>
-                                <th>
-                                    电量
-                                </th>
-                                <th>
-                                    单耗
-                                </th>
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td>
-                                109
-                            </td>
-                            <td>
-                                13
-                            </td>
-                            <td>
-                                1.34
-                            </td>
-                            <td>
-                                213
-                            </td>
-                        </tr>
-                        <tr>
-                    </table>
-                </div>
-
-                <div class="tu1", style="margin-top: 200px;">
-                    <div class="photo_right"><img height="400" width="100%" src="../static/img/index.png"></div>
-                    <div class="intro_left" >
-                        <h3>商圈交通流量与人流量对比可视化</h3>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;对于较大的商圈而言，交通流量与人流量之间是存在一定相关性的，人们可以根据交通流量与人流量对比，再结合自身的需要，选择合适的出行时间和出行方式。
-                        </p>
-                    </div>
-                </div>
-
-                <div class="tu1" style="margin-top: 200px;">
-                    <div class="photo_left"><img height="400" width="100%" src="../static/img/heat.png"></div>
-                    <div class="intro_right" >
-                        <h3>纽约城市交通流量热力图查询展示</h3>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;从区域交通流量可以看出区域的繁忙程度，交通流量的可视化展示可为人们的出行提供参考。
-                        </p>
-                    </div>
-                </div>
-
-                <div class="tu1" style="margin-top: 200px;">
-                    <div class="photo_right"><img height="400" width="100%" src="../static/img/pre.png"></div>
-                    <div class="intro_left" >
-                        <h3>区域交通流量预测</h3>
-                        <p>&nbsp;&nbsp;&nbsp;&nbsp;交通流量预测对于出行计划的选择和道路交通规划而言都是极其重要的，本文采用时空动态网络进行预测。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
+        <div class="body1" style="position:relative;height:500px;top:100px;overflow: auto;">
+            <div class="mume markdown-preview  ">
+                <h1 class="mume-header" id="%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3%E6%A6%82%E8%BF%B0">&#x6570;&#x636E;&#x63A5;&#x53E3;&#x6982;&#x8FF0;</h1>
             
-
+            <h2 class="mume-header" id="1-%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E6%8E%A5%E5%8F%A3">1. &#x6DFB;&#x52A0;&#x6570;&#x636E;&#x63A5;&#x53E3;</h2>
+            
+            <p><strong>HTTP Method POST</strong></p>
+            <p><strong>HTTP Path /adddata</strong></p>
+            <h3 class="mume-header" id="%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0">&#x8BF7;&#x6C42;&#x53C2;&#x6570;</h3>
+            
+            <table>
+            <thead>
+            <tr>
+            <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+            <th>&#x53C2;&#x6570;&#x4F4D;&#x7F6E;</th>
+            <th>&#x53C2;&#x6570;&#x7C7B;&#x578B;</th>
+            <th>&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+            <th>&#x4F5C;&#x7528;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>tra_data</td>
+            <td>path</td>
+            <td>map</td>
+            <td>&#x662F;</td>
+            <td>&#x4EA4;&#x901A;&#x6D41;&#x91CF;&#x6570;&#x636E;</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 class="mume-header" id="%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B">&#x8BF7;&#x6C42;&#x793A;&#x4F8B;</h3>
+            
+            <pre data-role="codeBlock" data-info class="language-"><code>http://47.95.147.13:9999/adddata/
+            </code></pre><h3 class="mume-header" id="%E5%93%8D%E5%BA%94%E5%8F%82%E6%95%B0">&#x54CD;&#x5E94;&#x53C2;&#x6570;</h3>
+            
+            <table>
+            <thead>
+            <tr>
+            <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+            <th>&#x53C2;&#x6570;&#x4F4D;&#x7F6E;</th>
+            <th>&#x53C2;&#x6570;&#x7C7B;&#x578B;</th>
+            <th>&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+            <th>&#x4F5C;&#x7528;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>code</td>
+            <td>req body</td>
+            <td>int</td>
+            <td>&#x662F;</td>
+            <td>&#x72B6;&#x6001;&#x7801;</td>
+            </tr>
+            <tr>
+            <td>des</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x72B6;&#x6001;&#x63CF;&#x8FF0;</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 class="mume-header" id="%E5%93%8D%E5%BA%94%E7%A4%BA%E4%BE%8B">&#x54CD;&#x5E94;&#x793A;&#x4F8B;</h3>
+            
+            <pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+              <span class="token property">&quot;code&quot;</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;des&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Added successfully&quot;</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span>
+            </pre><h2 class="mume-header" id="2-%E4%BA%BA%E5%8F%A3%E8%BF%81%E7%A7%BB%E6%83%85%E5%86%B5%E6%8E%A5%E5%8F%A3">2. &#x4EBA;&#x53E3;&#x8FC1;&#x79FB;&#x60C5;&#x51B5;&#x63A5;&#x53E3;</h2>
+            
+            <p><strong>HTTP Method POST</strong></p>
+            <p><strong>HTTP Path /getflydata</strong></p>
+            <h3 class="mume-header" id="%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-1">&#x8BF7;&#x6C42;&#x53C2;&#x6570;</h3>
+            
+            <table>
+            <thead>
+            <tr>
+            <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+            <th>&#x53C2;&#x6570;&#x4F4D;&#x7F6E;</th>
+            <th>&#x53C2;&#x6570;&#x7C7B;&#x578B;</th>
+            <th>&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+            <th>&#x4F5C;&#x7528;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>region</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x9700;&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x4EA4;&#x901A;&#x533A;&#x57DF;&#x540D;&#x79F0;</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 class="mume-header" id="%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-1">&#x8BF7;&#x6C42;&#x793A;&#x4F8B;</h3>
+            
+            <pre data-role="codeBlock" data-info class="language-"><code>http://47.95.147.13:9999/getflydata/
+            </code></pre><h3 class="mume-header" id="%E5%93%8D%E5%BA%94%E5%8F%82%E6%95%B0-1">&#x54CD;&#x5E94;&#x53C2;&#x6570;</h3>
+            
+            <table>
+            <thead>
+            <tr>
+            <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+            <th>&#x53C2;&#x6570;&#x4F4D;&#x7F6E;</th>
+            <th>&#x53C2;&#x6570;&#x7C7B;&#x578B;</th>
+            <th>&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+            <th>&#x4F5C;&#x7528;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>code</td>
+            <td>req body</td>
+            <td>int</td>
+            <td>&#x662F;</td>
+            <td>&#x72B6;&#x6001;&#x7801;</td>
+            </tr>
+            <tr>
+            <td>des</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x72B6;&#x6001;&#x63CF;&#x8FF0;</td>
+            </tr>
+            <tr>
+            <td>startpoints</td>
+            <td>req body</td>
+            <td>list</td>
+            <td>&#x662F;</td>
+            <td>&#x8FD1;30&#x79D2;&#x5185;&#x7684;&#x4EA4;&#x901A;&#x6D41;&#x91CF;&#x8D77;&#x70B9;&#x5750;&#x6807;&#x96C6;&#x5408;</td>
+            </tr>
+            <tr>
+            <td>endpoints</td>
+            <td>req body</td>
+            <td>list</td>
+            <td>&#x662F;</td>
+            <td>&#x8FD1;30&#x79D2;&#x5185;&#x7684;&#x4EA4;&#x901A;&#x6D41;&#x91CF;&#x7EC8;&#x70B9;&#x5750;&#x6807;&#x96C6;&#x5408;</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 class="mume-header" id="%E5%93%8D%E5%BA%94%E7%A4%BA%E4%BE%8B-1">&#x54CD;&#x5E94;&#x793A;&#x4F8B;</h3>
+            
+            <pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+              <span class="token property">&quot;code&quot;</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;des&quot;</span><span class="token operator">:</span> <span class="token string">&quot;success&quot;</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;startpoints&quot;</span><span class="token operator">:</span><span class="token punctuation">[</span>
+                  <span class="token punctuation">[</span><span class="token number">-73.98966979980467</span><span class="token punctuation">,</span> <span class="token number">40.75914764404297</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+                  <span class="token punctuation">[</span><span class="token number">-73.98416137695312</span><span class="token punctuation">,</span> <span class="token number">40.759010314941406</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                  ......
+              <span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;endpoints&quot;</span><span class="token operator">:</span><span class="token punctuation">[</span>
+                  <span class="token punctuation">[</span><span class="token number">-73.95948028564453</span><span class="token punctuation">,</span> <span class="token number">40.77957534790039</span><span class="token punctuation">]</span><span class="token punctuation">,</span> 
+                  <span class="token punctuation">[</span><span class="token number">-73.96556091308594</span><span class="token punctuation">,</span> <span class="token number">40.7601318359375</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                  ......
+              <span class="token punctuation">]</span><span class="token punctuation">,</span>
+              
+            <span class="token punctuation">}</span>
+            </pre><h2 class="mume-header" id="3-%E5%8C%BA%E5%9F%9F%E6%B5%81%E9%87%8F%E5%AF%86%E5%BA%A6%E6%8E%A5%E5%8F%A3">3. &#x533A;&#x57DF;&#x6D41;&#x91CF;&#x5BC6;&#x5EA6;&#x63A5;&#x53E3;</h2>
+            
+            <p><strong>HTTP Method POST</strong></p>
+            <p><strong>HTTP Path /getheatdata</strong></p>
+            <h3 class="mume-header" id="%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-2">&#x8BF7;&#x6C42;&#x53C2;&#x6570;</h3>
+            
+            <table>
+            <thead>
+            <tr>
+            <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+            <th>&#x53C2;&#x6570;&#x4F4D;&#x7F6E;</th>
+            <th>&#x53C2;&#x6570;&#x7C7B;&#x578B;</th>
+            <th>&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+            <th>&#x4F5C;&#x7528;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>startdate</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x67E5;&#x8BE2;&#x5F00;&#x59CB;&#x65F6;&#x95F4;</td>
+            </tr>
+            <tr>
+            <td>enddate</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x67E5;&#x8BE2;&#x7ED3;&#x675F;&#x65F6;&#x95F4;</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 class="mume-header" id="%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-2">&#x8BF7;&#x6C42;&#x793A;&#x4F8B;</h3>
+            
+            <pre data-role="codeBlock" data-info class="language-"><code>http://47.95.147.13:9999/getheatdata/
+            </code></pre><h3 class="mume-header" id="%E5%93%8D%E5%BA%94%E5%8F%82%E6%95%B0-2">&#x54CD;&#x5E94;&#x53C2;&#x6570;</h3>
+            
+            <table>
+            <thead>
+            <tr>
+            <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+            <th>&#x53C2;&#x6570;&#x4F4D;&#x7F6E;</th>
+            <th>&#x53C2;&#x6570;&#x7C7B;&#x578B;</th>
+            <th>&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+            <th>&#x4F5C;&#x7528;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>code</td>
+            <td>req body</td>
+            <td>int</td>
+            <td>&#x662F;</td>
+            <td>&#x72B6;&#x6001;&#x7801;</td>
+            </tr>
+            <tr>
+            <td>des</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x72B6;&#x6001;&#x63CF;&#x8FF0;</td>
+            </tr>
+            <tr>
+            <td>mapdata</td>
+            <td>req body</td>
+            <td>list</td>
+            <td>&#x662F;</td>
+            <td>&#x7ED3;&#x679C;</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 class="mume-header" id="%E5%93%8D%E5%BA%94%E7%A4%BA%E4%BE%8B-2">&#x54CD;&#x5E94;&#x793A;&#x4F8B;</h3>
+            
+            <pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+              <span class="token property">&quot;code&quot;</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;des&quot;</span><span class="token operator">:</span> <span class="token string">&quot;success&quot;</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;mapdata&quot;</span><span class="token operator">:</span><span class="token punctuation">[</span>
+                  <span class="token punctuation">{</span>
+                      <span class="token property">&quot;LocationID&quot;</span><span class="token operator">:</span><span class="token number">201</span><span class="token punctuation">,</span>
+                      <span class="token property">&quot;weight&quot;</span><span class="token operator">:</span><span class="token number">10</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">{</span>
+                      <span class="token property">&quot;LocationID&quot;</span><span class="token operator">:</span><span class="token number">117</span><span class="token punctuation">,</span>
+                      <span class="token property">&quot;weight&quot;</span><span class="token operator">:</span><span class="token number">3</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                  ...
+              <span class="token punctuation">]</span>
+              
+            <span class="token punctuation">}</span>
+            </pre><h2 class="mume-header" id="4-%E5%8C%BA%E5%9F%9F%E6%B5%81%E9%87%8F%E8%B6%8B%E5%8A%BF%E6%8E%A5%E5%8F%A3">4. &#x533A;&#x57DF;&#x6D41;&#x91CF;&#x8D8B;&#x52BF;&#x63A5;&#x53E3;</h2>
+            
+            <p><strong>HTTP Method POST</strong></p>
+            <p><strong>HTTP Path /getindexdata</strong></p>
+            <h3 class="mume-header" id="%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-3">&#x8BF7;&#x6C42;&#x53C2;&#x6570;</h3>
+            
+            <table>
+            <thead>
+            <tr>
+            <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+            <th>&#x53C2;&#x6570;&#x4F4D;&#x7F6E;</th>
+            <th>&#x53C2;&#x6570;&#x7C7B;&#x578B;</th>
+            <th>&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+            <th>&#x4F5C;&#x7528;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>region</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x9700;&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x4EA4;&#x901A;&#x533A;&#x57DF;&#x540D;&#x79F0;</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 class="mume-header" id="%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-3">&#x8BF7;&#x6C42;&#x793A;&#x4F8B;</h3>
+            
+            <pre data-role="codeBlock" data-info class="language-"><code>http://47.95.147.13:9999/getindexdata/
+            </code></pre><h3 class="mume-header" id="%E5%93%8D%E5%BA%94%E5%8F%82%E6%95%B0-3">&#x54CD;&#x5E94;&#x53C2;&#x6570;</h3>
+            
+            <table>
+            <thead>
+            <tr>
+            <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+            <th>&#x53C2;&#x6570;&#x4F4D;&#x7F6E;</th>
+            <th>&#x53C2;&#x6570;&#x7C7B;&#x578B;</th>
+            <th>&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+            <th>&#x4F5C;&#x7528;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>code</td>
+            <td>req body</td>
+            <td>int</td>
+            <td>&#x662F;</td>
+            <td>&#x72B6;&#x6001;&#x7801;</td>
+            </tr>
+            <tr>
+            <td>des</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x72B6;&#x6001;&#x63CF;&#x8FF0;</td>
+            </tr>
+            <tr>
+            <td>indexdata</td>
+            <td>req body</td>
+            <td>list</td>
+            <td>&#x662F;</td>
+            <td>&#x6309;&#x5929;&#x5212;&#x5206;&#x7684;&#x4EA4;&#x901A;&#x6D41;&#x91CF;&#x7EDF;&#x8BA1;</td>
+            </tr>
+            <tr>
+            <td>ggdata</td>
+            <td>req body</td>
+            <td>list</td>
+            <td>&#x662F;</td>
+            <td>&#x6BCF;&#x5929;&#x7684;&#x4EBA;&#x6D41;&#x91CF;&#x7EDF;&#x8BA1;</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 class="mume-header" id="%E5%93%8D%E5%BA%94%E7%A4%BA%E4%BE%8B-3">&#x54CD;&#x5E94;&#x793A;&#x4F8B;</h3>
+            
+            <pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+              <span class="token property">&quot;code&quot;</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;des&quot;</span><span class="token operator">:</span> <span class="token string">&quot;success&quot;</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;indexdata&quot;</span><span class="token operator">:</span><span class="token punctuation">{</span>
+                  <span class="token property">&quot;0&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                      <span class="token punctuation">{</span><span class="token property">&quot;t&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">3443</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                      <span class="token punctuation">{</span><span class="token property">&quot;t&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">2225</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                  <span class="token property">&quot;1&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                      <span class="token punctuation">{</span><span class="token property">&quot;t&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">4366</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                      <span class="token punctuation">{</span><span class="token property">&quot;t&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">2484</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                      ......
+                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                  ......
+            
+              <span class="token punctuation">}</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;ggdata&quot;</span><span class="token operator">:</span><span class="token punctuation">{</span>
+                  <span class="token property">&quot;0&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                      <span class="token punctuation">{</span><span class="token property">&quot;t&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">73</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                      <span class="token punctuation">{</span><span class="token property">&quot;t&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">25</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                  <span class="token property">&quot;1&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                      <span class="token punctuation">{</span><span class="token property">&quot;t&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">76</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                      <span class="token punctuation">{</span><span class="token property">&quot;t&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">34</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                      ......
+                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                  ......
+              <span class="token punctuation">}</span>
+              
+            <span class="token punctuation">}</span>
+            </pre><h2 class="mume-header" id="5-%E5%8C%BA%E5%9F%9F%E6%B5%81%E9%87%8F%E9%A2%84%E6%B5%8B%E6%8E%A5%E5%8F%A3">5. &#x533A;&#x57DF;&#x6D41;&#x91CF;&#x9884;&#x6D4B;&#x63A5;&#x53E3;</h2>
+            
+            <p><strong>HTTP Method POST</strong></p>
+            <p><strong>HTTP Path /getpredata</strong></p>
+            <h3 class="mume-header" id="%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0-4">&#x8BF7;&#x6C42;&#x53C2;&#x6570;</h3>
+            
+            <table>
+            <thead>
+            <tr>
+            <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+            <th>&#x53C2;&#x6570;&#x4F4D;&#x7F6E;</th>
+            <th>&#x53C2;&#x6570;&#x7C7B;&#x578B;</th>
+            <th>&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+            <th>&#x4F5C;&#x7528;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>region</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x9700;&#x8981;&#x67E5;&#x8BE2;&#x7684;&#x4EA4;&#x901A;&#x533A;&#x57DF;&#x540D;&#x79F0;</td>
+            </tr>
+            <tr>
+            <td>startdate</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x67E5;&#x8BE2;&#x5F00;&#x59CB;&#x65F6;&#x95F4;</td>
+            </tr>
+            <tr>
+            <td>enddate</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x67E5;&#x8BE2;&#x7ED3;&#x675F;&#x65F6;&#x95F4;</td>
+            </tr>
+            <tr>
+            <td>granularity</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x9884;&#x6D4B;&#x7C92;&#x5EA6;</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 class="mume-header" id="%E8%AF%B7%E6%B1%82%E7%A4%BA%E4%BE%8B-4">&#x8BF7;&#x6C42;&#x793A;&#x4F8B;</h3>
+            
+            <pre data-role="codeBlock" data-info class="language-"><code>http://47.95.147.13:9999/getpredata/
+            </code></pre><h3 class="mume-header" id="%E5%93%8D%E5%BA%94%E5%8F%82%E6%95%B0-4">&#x54CD;&#x5E94;&#x53C2;&#x6570;</h3>
+            
+            <table>
+            <thead>
+            <tr>
+            <th>&#x53C2;&#x6570;&#x540D;&#x79F0;</th>
+            <th>&#x53C2;&#x6570;&#x4F4D;&#x7F6E;</th>
+            <th>&#x53C2;&#x6570;&#x7C7B;&#x578B;</th>
+            <th>&#x662F;&#x5426;&#x5FC5;&#x987B;</th>
+            <th>&#x4F5C;&#x7528;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>code</td>
+            <td>req body</td>
+            <td>int</td>
+            <td>&#x662F;</td>
+            <td>&#x72B6;&#x6001;&#x7801;</td>
+            </tr>
+            <tr>
+            <td>des</td>
+            <td>req body</td>
+            <td>String</td>
+            <td>&#x662F;</td>
+            <td>&#x72B6;&#x6001;&#x63CF;&#x8FF0;</td>
+            </tr>
+            <tr>
+            <td>tradata</td>
+            <td>req body</td>
+            <td>map</td>
+            <td>&#x662F;</td>
+            <td>&#x7ED9;&#x5B9A;&#x65F6;&#x95F4;&#x5185;&#x7684;&#x4EA4;&#x901A;&#x6D41;&#x91CF;&#x7EDF;&#x8BA1;</td>
+            </tr>
+            <tr>
+            <td>predata</td>
+            <td>req body</td>
+            <td>map</td>
+            <td>&#x662F;</td>
+            <td>&#x9884;&#x6D4B;&#x7ED3;&#x679C;&#x6570;&#x636E;</td>
+            </tr>
+            </tbody>
+            </table>
+            <h3 class="mume-header" id="%E5%93%8D%E5%BA%94%E7%A4%BA%E4%BE%8B-4">&#x54CD;&#x5E94;&#x793A;&#x4F8B;</h3>
+            
+            <pre data-role="codeBlock" data-info="json" class="language-json"><span class="token punctuation">{</span>
+              <span class="token property">&quot;code&quot;</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;des&quot;</span><span class="token operator">:</span> <span class="token string">&quot;success&quot;</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;tradata&quot;</span><span class="token operator">:</span><span class="token punctuation">{</span>
+                  <span class="token property">&quot;2017-01-01&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                      <span class="token punctuation">{</span><span class="token property">&quot;x&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">0.3650014333492594</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                      <span class="token punctuation">{</span><span class="token property">&quot;x&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">0.22861347348303868</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                      ......
+                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                  <span class="token property">&quot;2017-01-02&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                      <span class="token punctuation">{</span><span class="token property">&quot;x&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">0.33554897511534676</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                      <span class="token punctuation">{</span><span class="token property">&quot;x&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">0.173755464790863</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                      ......
+                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                  ......
+              <span class="token punctuation">}</span><span class="token punctuation">,</span>
+              <span class="token property">&quot;predata&quot;</span><span class="token operator">:</span><span class="token punctuation">{</span>
+                  <span class="token property">&quot;2017-01-04&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+                      <span class="token punctuation">{</span><span class="token property">&quot;x&quot;</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">0.2790014333492594</span><span class="token punctuation">}</span><span class="token punctuation">,</span> 
+                      <span class="token punctuation">{</span><span class="token property">&quot;x&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">&quot;y&quot;</span><span class="token operator">:</span> <span class="token number">0.2436134734830387</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                      ......
+                  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token punctuation">}</span>
+              
+            <span class="token punctuation">}</span>
+            </pre>
+                </div>
+                
+        
         </div>
-    </div>
-    </body>
-</html>
+
+    <div>
+
+
+    
+  
+  
+  
+  
+  
+  
+  
+  
+
+  </body></html>
