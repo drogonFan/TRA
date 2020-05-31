@@ -168,7 +168,7 @@ def get_pre_data(request):
         delta = timedelta(days=1)
         print(days)
         rs = {}
-        time.sleep(30)
+        time.sleep(3)
         for i in range(days):        
             # 使用假数据测试
             week = random.randint(0, 7)
