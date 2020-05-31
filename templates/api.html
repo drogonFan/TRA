@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>位置流量趋势</title>
+        <link rel="stylesheet" href="../static/css/jquery.datetimepicker.css">
+        <link rel="stylesheet" href="../static/css/semantic.min.css">
+        <link rel="stylesheet" href="../static/css/style.min.css">
+        <link rel="stylesheet" href="../static/css/over.css">
+
+        <style type="text/css">
+            table
+            {
+                border-collapse: collapse;
+                margin: 0 auto;
+                text-align: center;
+            }
+            table td, table th
+            {
+                border: 1px solid #cad9ea;
+                color: #666;
+                height: 30px;
+            }
+            table thead th
+            {
+                background-color: #CCE8EB;
+                width: 100px;
+            }
+            table tr:nth-child(odd)
+            {
+                background: #fff;
+            }
+            table tr:nth-child(even)
+            {
+                background: #F5FAFA;
+            }
+        </style>
+    </head>
+<body>
+    <div class="ui fixed main menu header">
+        <div class="container header_container">
+            <div class="header_container_left">
+                <a class="header_container_left_title">交通可视化系统</a>
+                <a href="http://47.95.147.13:9999/overview/" class="header_container_left_nav">概述</a>
+                <a href="http://47.95.147.13:9999/homepage/" class="header_container_left_nav">人口迁徙情况</a>
+                <a href="http://47.95.147.13:9999/traffic_trend/" class="header_container_left_nav">区域流量趋势</a>
+                <a href="http://47.95.147.13:9999/heatmap/" class="header_container_left_nav">区域流量密度</a>
+                <a href="http://47.95.147.13:9999/prediction/" class="header_container_left_nav">区域流量预测</a>
+                <a href="http://47.95.147.13:9999/api/" class="header_container_left_nav">数据接口</a>
+            </div>
+        </div>
+        
+        <div class="body" style="position:relative;height:500px;top:130px;overflow: auto;">
+            <div class="main_overview">
+                <div>
+                    <h1 align="center" style="margin-top: 20px;">数据接口概述</h1>
+                </div>
+
+                <br><br>
+
+                <div class="tu1">
+                    <table width="90%" class="table">
+                        <caption>
+                            <h2>
+                                添加数据接口</h2>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>
+                                    车间
+                                </th>
+                                <th>
+                                    产量
+                                </th>
+                                <th>
+                                    电量
+                                </th>
+                                <th>
+                                    单耗
+                                </th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>
+                                109
+                            </td>
+                            <td>
+                                13
+                            </td>
+                            <td>
+                                1.34
+                            </td>
+                            <td>
+                                213
+                            </td>
+                        </tr>
+                        <tr>
+                    </table>
+                </div>
+
+                <div class="tu1", style="margin-top: 200px;">
+                    <div class="photo_right"><img height="400" width="100%" src="../static/img/index.png"></div>
+                    <div class="intro_left" >
+                        <h3>商圈交通流量与人流量对比可视化</h3>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;对于较大的商圈而言，交通流量与人流量之间是存在一定相关性的，人们可以根据交通流量与人流量对比，再结合自身的需要，选择合适的出行时间和出行方式。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="tu1" style="margin-top: 200px;">
+                    <div class="photo_left"><img height="400" width="100%" src="../static/img/heat.png"></div>
+                    <div class="intro_right" >
+                        <h3>纽约城市交通流量热力图查询展示</h3>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;从区域交通流量可以看出区域的繁忙程度，交通流量的可视化展示可为人们的出行提供参考。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="tu1" style="margin-top: 200px;">
+                    <div class="photo_right"><img height="400" width="100%" src="../static/img/pre.png"></div>
+                    <div class="intro_left" >
+                        <h3>区域交通流量预测</h3>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;交通流量预测对于出行计划的选择和道路交通规划而言都是极其重要的，本文采用时空动态网络进行预测。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            
+
+        </div>
+    </div>
+    </body>
+</html>

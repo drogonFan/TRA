@@ -42,17 +42,7 @@ def get_heat_data(request):
 
 @csrf_exempt
 def api(request):
-    # 区域，起始时间，终止时间，粒度
-    print(request.POST)
-    print(request.POST['region'])
-    print(request.POST['begindate'])
-    print(request.POST['enddate'])
-    print(request.POST['range'])
-
-    data = [{'x':10,'y':10}, {'x':15, 'y':15}]
-    rs = {'msg':"exist"}
-    # return render(request, 'chart.html', {'List': json.dumps(data),})
-    return HttpResponse(json.dumps(rs))
+    return render(request, 'api.html')
 
 def heat(request):
     if request.method == 'POST':
@@ -79,6 +69,7 @@ def heat(request):
         #         else:
         #             datamap[3].append(location_ID)
         rs = {'code':100, 'data':datamap}
+        print(rs)
     else:
         # 不接受get请求
         rs = {'code':109, 'msg':''}
@@ -121,6 +112,7 @@ def gen_index_data(request):
         else:
             gdata = gginfo_234
         rs = {'code':100, 'data':weeklist, 'gdata':gdata}
+        print(rs)
     else:
         # 不接受get请求
         rs = {'code':109, 'msg':''}
@@ -134,13 +126,15 @@ def get_flyingline_data(request):
         data = json.loads(request.body)
         # 获取用户输入地点
         region = data['region']
-        rec = OldRecord.objects.filter(ttype=region)[:30]
+        fly_len = random.randint(0, 10000)
+        rec = OldRecord.objects.filter(ttype=region)[fly_len:fly_len + 50]
         startpoints = []
         endpoints = []
         for r in rec:
             startpoints.append([r.uplon, r.uplat])
             endpoints.append([r.droplon, r.droplat])
         rs = {'code':100, 'startpoints':startpoints, 'endpoints':endpoints}
+        print(rs)
     else:
         rs = {'code':109, 'msg':''}
     return HttpResponse(json.dumps(rs))
@@ -194,6 +188,7 @@ def get_pre_data(request):
         # 不接受get请求
         rs = {'code':109, 'msg':''}
     # 返回json格式数据
+    print(rs)
     return HttpResponse(json.dumps(rs))
 
 @csrf_exempt
